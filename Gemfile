@@ -1,3 +1,3 @@
 source 'https://rubygems.org'
 
-gem 'snoo'
+gem 'redditkit', '~> 1.0.1'
