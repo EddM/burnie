@@ -3,10 +3,16 @@ module RedditKit
 
     module Subreddits
 
+      def subreddit_attributes(subreddit_name)
+        if attributes = get("r/#{subreddit_name}/about/edit.json")
+          attributes.body[:data]
+        end
+      end
+
+
       def update_subreddit(subreddit_name, parameters = {})
         @modhash = user.attributes[:modhash]
-
-        attributes = get("r/#{subreddit_name}/about/edit.json").body[:data]
+        attributes = subreddit_attributes(subreddit_name)
 
         params = {
           type: 'public', link_type: 'any',

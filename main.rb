@@ -16,7 +16,7 @@ if client.signed_in?
   begin
     if ARGV[0] == "schedule"
       task = ScheduleTask.new
-      task.call(client, Time.now.year, 11, Time.now.day)
+      task.call(client, Time.now.year, 12, Time.now.day)
     end
   ensure
     client.sign_out

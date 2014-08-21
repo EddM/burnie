@@ -7,11 +7,8 @@ class ScheduleTask
 
     calendar = fetch(year, month, day)
     table_markdown = calendar_to_reddit_table(calendar[0])
-    full_markdown = ["###{calendar[1].to_datetime.strftime("%B")} Schedule", table_markdown].join("\n\n")
-
-    # @client.update_subreddit(Configuration["subreddit"], {
-    #   :description => full_markdown  
-    # })
+    full_markdown = ["##[#{calendar[1].to_datetime.strftime("%B")} Schedule](http://nba-schedule.herokuapp.com/schedule/MIA.html)", table_markdown].join("\n\n")
+    update_sidebar(full_markdown)
   end
 
   def games
@@ -43,6 +40,16 @@ class ScheduleTask
     end
 
     table.join("\n")
+  end
+
+  def update_sidebar(full_markdown)
+    subreddit_attributes = @client.subreddit_attributes(Configuration["subreddit"])
+    sidebar_text = subreddit_attributes[:description]
+    sidebar_text.gsub!(/\#\#(.*?)Schedule(.*?)\#\#/imx, "#{full_markdown}\n\n##")
+
+    @client.update_subreddit(Configuration["subreddit"], {
+      :description => sidebar_text
+    })
   end
 
   def date_range(year, month)
