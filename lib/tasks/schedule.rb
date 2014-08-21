@@ -6,7 +6,7 @@ class ScheduleTask
     @client = client
 
     calendar = fetch(year, month, day)
-    table_markdown = calendar_to_reddit_table(calendar[0])
+    table_markdown = calendar_to_markdown(calendar[0])
     full_markdown = ["##[#{calendar[1].to_datetime.strftime("%B")} Schedule](http://nba-schedule.herokuapp.com/schedule/MIA.html)", table_markdown].join("\n\n")
     update_sidebar(full_markdown)
   end
@@ -19,7 +19,7 @@ class ScheduleTask
 
   private
 
-  def calendar_to_reddit_table(calendar)
+  def calendar_to_markdown(calendar)
     table = []
     table << "|#{calendar[0].join("|")}|"
     table << "|:--:|:--:|:--:|:--:|:--:|:--:|:--:|"
