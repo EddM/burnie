@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby -w
+
 require 'json'
 require 'open-uri'
 require 'redditkit'
