@@ -2,9 +2,7 @@ class Listener
   attr_reader :client
 
   def initialize(client, comment)
-    raise "Please provide a pattern to match in this listener" unless @@pattern
-
-    if comment && match_data = comment["body"].match(@@pattern)
+    if comment && match_data = comment["body"].match(pattern)
       @client = client
       call(comment, match_data)
     end
@@ -14,8 +12,12 @@ class Listener
     raise
   end
 
-  def self.matches(pattern)
-    @@pattern = Regexp.new(pattern)
+  def send_reply(comment, body)
+    if comment && body
+      new_comment = client.submit_comment comment["name"], body
+      puts " + Replied to #{comment["id"]}"
+      new_comment
+    end
   end
 
 end

@@ -1,14 +1,9 @@
-require 'open-uri'
-require 'nokogiri'
-
-class LastSeasonStatsListener < Listener
+class CareerStatsListener < Listener
 
   StatsIndices = [
-    5, # GP
-    7, #MP
-    8, 9, 10, #FG
-    11, 12, 13, #3
-    17, 18, 19, #FT
+    10, #FG%
+    13, #3%
+    19, #FT%
     22, #reb
     23, #ast
     24, #stl
@@ -17,10 +12,10 @@ class LastSeasonStatsListener < Listener
     28, #pts
   ]
 
-  TableHeaders = ["G", "MP", "FGM", "FGA", "FG%", "3PM", "3PA", "3P%", "FTM", "FTA", "FT%", "REB", "AST", "STL", "BLK", "TO", "PTS"]
+  TableHeaders = ["FG%", "3P%", "FT%", "REB", "AST", "STL", "BLK", "TO", "PTS"]
 
   def pattern
-    /((what|how).(were|was).(?<name>.+)(\'s)?.((last\s(season|year)\sstats)|(stats\slast\s(season|year))))/ix
+    /(((what|how)\sare)\s(?<name>.+)(\'s)?\scareer.stats)/ix
   end
 
   def call(comment, match_data)
@@ -43,26 +38,16 @@ class LastSeasonStatsListener < Listener
 
   def parse_stats(doc)
     player_name = doc.css("h1").text
-    per_game_2014 = doc.xpath("//tr[@id='per_game.2014']")
+    career_totals = doc.css('#all_per_game tr.stat_total')[0]
 
-    if per_game_2014.any?
-      teams = []
-      stats = []
+    if career_totals
+      cells = career_totals.css("td")
+      stat_line = StatsIndices.map { |i| cells[i].text }
 
-      per_game_2014.each do |year|
-        cells = year.css("td")
-        next if cells[2].text == "TOT"
-        teams << cells[2].text
-        stat_line = StatsIndices.map { |i| cells[i].text }
-        stats << stat_line
-      end
-
-      stat_markdown = ["**#{player_name}**'s 2013-14 per game stats (w/ #{teams.join(", ")}):\n"]
+      stat_markdown = ["**#{player_name}**'s career stats:\n"]
       stat_markdown << "|#{TableHeaders.join("|")}|"
       stat_markdown << "|#{"----|" * TableHeaders.size}"
-      stats.each do |stat_line|
-        stat_markdown << "|#{stat_line[0..TableHeaders.size].join("|")}|"
-      end
+      stat_markdown << "|#{stat_line[0..TableHeaders.size].join("|")}|"
 
       stats_as_comment stat_markdown
     else
