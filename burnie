@@ -8,6 +8,7 @@ require './support/redditkit_extensions.rb'
 
 require './lib/configuration.rb'
 require './lib/subreddits.rb'
+require './lib/primary_listener.rb'
 require './lib/teams.rb'
 require './lib/tasks/schedule.rb'
 require './lib/tasks/standings.rb'
@@ -25,10 +26,12 @@ if client.signed_in?
     when "standings"
       task = StandingsTask.new
       task.call(client)
+    else
+      PrimaryListener.listen(client)
     end
   ensure
     client.sign_out
   end
 else
-  puts "Failed auth"
+  puts "Failed auth :("
 end
