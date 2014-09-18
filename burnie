@@ -13,6 +13,8 @@ require './lib/teams.rb'
 require './lib/tasks/schedule.rb'
 require './lib/tasks/standings.rb'
 
+# Process.daemon
+
 client = RedditKit::Client.new 
 client.user_agent = "Burnie (/r/Heat) 1.0"
 client.sign_in Configuration["username"], Configuration["password"]
@@ -22,7 +24,9 @@ if client.signed_in?
     case ARGV[0]
     when "schedule"
       task = ScheduleTask.new
-      task.call(client, Time.now.year, 11, Time.now.day)
+      year, month, day = Time.now.year, Time.now.month, Time.now.day
+      month = 10 if month < 10 && year < 2015
+      task.call(client, year, month, day)
     when "standings"
       task = StandingsTask.new
       task.call(client)

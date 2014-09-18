@@ -28,5 +28,6 @@ Subreddits = {
   "DAL" => "Mavericks",
   "NYK" => "nyknicks",
   "DET" => "DetroitPistons",
-  "NOR" => "nolapelicans"
+  "NOR" => "nolapelicans",
+  "NOP" => "nolapelicans"
 }
