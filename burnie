@@ -13,7 +13,7 @@ require './lib/teams.rb'
 require './lib/tasks/schedule.rb'
 require './lib/tasks/standings.rb'
 
-# Process.daemon
+Process.daemon(true)
 
 client = RedditKit::Client.new 
 client.user_agent = "Burnie (/r/Heat) 1.0"
