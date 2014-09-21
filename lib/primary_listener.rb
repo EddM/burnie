@@ -18,27 +18,23 @@ class PrimaryListener
       @first_comment = nil
 
       begin
-        pid = Process.fork do
-          comments = JSON.parse(open(url).read)
-          sleep(5)
+        comments = JSON.parse(open(url).read)
+        sleep(5)
 
-          comments["data"]["children"].each do |comment|
-            comment = comment["data"]
-            @first_comment = comment unless @first_comment
-            comment_created_at = Time.at(comment["created"]) - 28800
-            break if comment_created_at <= @most_recent_comment
+        comments["data"]["children"].each do |comment|
+          comment = comment["data"]
+          @first_comment = comment unless @first_comment
+          comment_created_at = Time.at(comment["created"]) - 28800
+          break if comment_created_at <= @most_recent_comment
 
-            puts " - Processing comment #{comment["id"]} by #{comment["author"]}"
+          puts " - Processing comment #{comment["id"]} by #{comment["author"]}"
 
-            @listeners.each do |klass|
-              klass.new(@client, comment)
-            end
+          @listeners.each do |klass|
+            klass.new(@client, comment)
           end
-
-          @most_recent_comment = Time.at(@first_comment["created"]) - 28800 if @first_comment
         end
 
-        Process.waitpid(pid)
+        @most_recent_comment = Time.at(@first_comment["created"]) - 28800 if @first_comment
       rescue RedditKit::RateLimited
         puts " - Rate limited. Waiting..."
       end
