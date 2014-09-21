@@ -44,7 +44,8 @@ class CareerStatsListener < Listener
       cells = career_totals.css("td")
       stat_line = StatsIndices.map { |i| cells[i].text }
 
-      stat_markdown = ["**#{player_name}**'s career stats:\n"]
+      aliased_player_name = PlayerNames[player_name] || player_name
+      stat_markdown = ["**#{aliased_player_name}**'s career stats:\n"]
       stat_markdown << "|#{TableHeaders.join("|")}|"
       stat_markdown << "|#{"----|" * TableHeaders.size}"
       stat_markdown << "|#{stat_line[0..TableHeaders.size].join("|")}|"

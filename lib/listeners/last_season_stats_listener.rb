@@ -57,7 +57,8 @@ class LastSeasonStatsListener < Listener
         stats << stat_line
       end
 
-      stat_markdown = ["**#{player_name}**'s 2013-14 per game stats (w/ #{teams.join(", ")}):\n"]
+      aliased_player_name = PlayerNames[player_name] || player_name
+      stat_markdown = ["**#{aliased_player_name}**'s 2013-14 per game stats (w/ #{teams.join(", ")}):\n"]
       stat_markdown << "|#{TableHeaders.join("|")}|"
       stat_markdown << "|#{"----|" * TableHeaders.size}"
       stats.each do |stat_line|

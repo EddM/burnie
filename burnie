@@ -7,11 +7,12 @@ require 'redditkit'
 require './support/redditkit_extensions.rb'
 
 require './lib/configuration.rb'
-require './lib/subreddits.rb'
+require './lib/player_names.rb'
 require './lib/primary_listener.rb'
-require './lib/teams.rb'
+require './lib/subreddits.rb'
 require './lib/tasks/schedule.rb'
 require './lib/tasks/standings.rb'
+require './lib/teams.rb'
 
 # Process.daemon(true)
 
