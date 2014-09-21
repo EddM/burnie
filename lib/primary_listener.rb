@@ -2,8 +2,7 @@ require 'open-uri'
 require 'json'
 
 require './lib/listener.rb'
-require './lib/listeners/last_season_stats_listener.rb'
-require './lib/listeners/career_stats_listener.rb'
+Dir["./lib/listeners/*.rb"].each { |file| require file }
 
 class PrimaryListener
 
@@ -12,7 +11,7 @@ class PrimaryListener
   def initialize(client)
     @client = client
     @most_recent_comment = Time.now - 300
-    @listeners = [LastSeasonStatsListener, CareerStatsListener]
+    @listeners = [LastSeasonStatsListener, CareerStatsListener, AboutMeListener]
 
     loop do
       @first_comment = nil
