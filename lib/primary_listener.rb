@@ -21,7 +21,7 @@ class PrimaryListener
       @first_comment = nil
 
       begin
-        comments = JSON.parse(open(url).read)
+        comments = JSON.parse open(url).read
         sleep(5)
 
         comments["data"]["children"].each do |comment|
@@ -30,10 +30,21 @@ class PrimaryListener
           comment_created_at = Time.at(comment["created"]) - 28800
           break if comment_created_at <= @most_recent_comment
 
+          if comment["author"] == Configuration["username"]
+            puts " - Ignoring comment #{comment["id"]} by #{comment["author"]}"
+            next
+          end
+
           puts " - Processing comment #{comment["id"]} by #{comment["author"]}"
 
           @listeners.each do |klass|
-            klass.new(@client, comment)
+            begin
+              klass.new(@client, comment)
+            rescue => e
+              puts "  - Exception occured during #{klass}:"
+              puts "      #{e}"
+              puts "      #{e.backtrace.join("\n      ")}"
+            end
           end
         end
 

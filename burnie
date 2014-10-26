@@ -3,6 +3,7 @@
 require 'json'
 require 'open-uri'
 require 'redditkit'
+require 'daemons'
 
 require './support/redditkit_extensions.rb'
 
@@ -30,6 +31,7 @@ if client.signed_in?
       task = StandingsTask.new
       task.call(client)
     else
+      Daemons.daemonize({ log_output: true })
       PrimaryListener.listen(client)
     end
   ensure

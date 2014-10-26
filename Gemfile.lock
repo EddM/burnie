@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    daemons (1.1.9)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
     htmlentities (4.3.2)
@@ -15,4 +16,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  daemons
   redditkit (~> 1.0.1)
