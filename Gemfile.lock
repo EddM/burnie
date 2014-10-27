@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    chronic (0.10.2)
     daemons (1.1.9)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
@@ -11,6 +12,8 @@ GEM
       faraday (~> 0.8)
       htmlentities (~> 4.3)
       multi_json (~> 1.8)
+    whenever (0.9.4)
+      chronic (>= 0.6.3)
 
 PLATFORMS
   ruby
@@ -18,3 +21,4 @@ PLATFORMS
 DEPENDENCIES
   daemons
   redditkit (~> 1.0.1)
+  whenever
