@@ -10,7 +10,7 @@ require './lib/listeners/season_listeners/current_season_stats_listener.rb'
 
 class PrimaryListener
 
-  SleepTimePerCycle = 10
+  SleepTimePerCycle = 15
 
   def initialize(client)
     @client = client

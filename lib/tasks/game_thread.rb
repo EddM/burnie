@@ -45,8 +45,11 @@ class GameThreadTask
           "Let's go heat!"
         ].join("\n")
 
-        client.submit title, Configuration["subreddit"], { text: body }
+        response = client.submit "[Game Thread] #{title}", Configuration["subreddit"], { text: body, extension: 'json' }
         puts " - Posted game thread"
+
+        # client.set_sticky_post link, true
+        # puts "   - Stickied"
       end
     end
   end
