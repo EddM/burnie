@@ -11,6 +11,7 @@ require './lib/configuration.rb'
 require './lib/player_names.rb'
 require './lib/primary_listener.rb'
 require './lib/subreddits.rb'
+require './lib/tasks/game_thread.rb'
 require './lib/tasks/schedule.rb'
 require './lib/tasks/standings.rb'
 require './lib/teams.rb'
@@ -29,6 +30,9 @@ if client.signed_in?
       task.call(client, year, month, day)
     when "standings"
       task = StandingsTask.new
+      task.call(client)
+    when "gamethread"
+      task = GameThreadTask.new
       task.call(client)
     else
       Daemons.daemonize({ log_output: true })
