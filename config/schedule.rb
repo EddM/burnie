@@ -3,7 +3,7 @@
 
 job_type :burnie, '/opt/burnie/burnie :task'
 
-every 1.day, :at => "3:00 am" do
+every 1.day, :at => "9:00 am" do
   burnie "gamethread"
 end
 
