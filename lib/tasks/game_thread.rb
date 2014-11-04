@@ -38,7 +38,7 @@ class GameThreadTask
           "|Game Details||",
           "|:---|:---|",
           "|**Location:**|#{detail.css(".nbaGILocat").text}|",
-          "|**Tip-off time:**|#{game_time.strftime("%I:%M%p")} Eastern (#{(game_time - 3600).strftime("%I:%M%p")} Central, #{(game_time - 7200).strftime("%I:%M%p")} Mountain, #{(game_time - 10800).strftime("%I:%M%p")} Pacific, #{(game_time + 18000).strftime("%I:%M%p")} GMT)|",
+          "|**Tip-off time:**|#{game_time.strftime("%I:%M%p")} Eastern (#{(game_time - 3600).strftime("%I:%M%p")} Central, #{(game_time - 10800).strftime("%I:%M%p")} Pacific, #{(game_time + 18000).strftime("%I:%M%p")} GMT)|",
           "|**TV/Radio:**|#{media.join(" / ")}|",
           "|**Game Info & Stats:**|[NBA.com](#{detail_url}) / [BoxScoreReplay.com](http://www.boxscorereplay.com/#{game_time.month}#{game_time.day}-#{game["away_team"][0].downcase.gsub(" ", "-")}-#{game["home_team"][0].downcase.gsub(" ", "-")})|",
           "",
