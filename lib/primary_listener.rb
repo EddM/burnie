@@ -51,6 +51,10 @@ class PrimaryListener
         @most_recent_comment = Time.at(@first_comment["created"]) - 28800 if @first_comment
       rescue RedditKit::RateLimited
         puts " - Rate limited. Waiting..."
+      rescue => e
+        puts "  - Exception occured:"
+        puts "      #{e}"
+        puts "      #{e.backtrace.join("\n      ")}"
       end
 
       @first_comment = nil
