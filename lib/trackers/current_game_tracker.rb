@@ -118,7 +118,9 @@ class CurrentGameTracker
 
   def reset_sidebar
     if @original_sidebar_text
-      @client.update_subreddit(Configuration["subreddit"], { :description => @original_sidebar_text })
+      @client.update_subreddit(Configuration["subreddit"], { 
+        :description => @original_sidebar_text 
+      })
     end
   end
 
