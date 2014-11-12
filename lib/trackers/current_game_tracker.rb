@@ -1,3 +1,5 @@
+require 'active_support/all'
+require 'date'
 require 'open-uri'
 require 'json'
 
@@ -7,7 +9,6 @@ class CurrentGameTracker
   attr_reader :current_game
 
   DataSource = "http://nba-schedule.herokuapp.com/schedule/MIA.json"
-  GameDuration = 21600 # 6 hours
 
   def initialize(client)
     @client = client
@@ -15,10 +16,11 @@ class CurrentGameTracker
     @started_at = Time.now
 
     @current_game = self.games.find do |game|
-      now = Time.now + 1800 # now + 30 minutes
-      game_starts_at = Time.parse(game["datetime"])
-      game_end_threshold = game_starts_at + GameDuration
-      game_starts_at.to_datetime < now.to_datetime && game_end_threshold.to_datetime > Time.now.to_datetime
+      now = Time.now.in_time_zone("Eastern Time (US & Canada)") + 30.minutes # now (in ET) + 30 minutes
+      game_starts_at = Time.parse(game["datetime"]).to_datetime.utc.change(:offset => "-05:00")
+      game_end_threshold = game_starts_at + 6.hours
+
+      game_starts_at.to_datetime < now.to_datetime && game_end_threshold.to_datetime > now.to_datetime
     end
   end
 
@@ -27,7 +29,7 @@ class CurrentGameTracker
   end
 
   def ends_at
-    @ends_at ||= @started_at + GameDuration
+    @ends_at ||= @started_at + 6.hours
   end
 
   def data_url

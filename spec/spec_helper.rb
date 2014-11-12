@@ -3,6 +3,8 @@ require 'webmock/rspec'
 
 require './lib/burnie'
 
+#todo randomize
+
 # Web Mocks
 RSpec.configure do |config|
   config.before(:each) do
