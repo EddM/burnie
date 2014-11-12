@@ -125,6 +125,7 @@ class CurrentGameTracker
   def self.track(client)
     loop do
       if @tracker && @tracker.active?
+        puts " - Game is live! Checking on it..."
         @tracker.check
         sleep @tracker.sleep_duration
       else
@@ -133,8 +134,9 @@ class CurrentGameTracker
           @tracker = nil
         end
 
+        puts " - Checking to see if there's a live game"
         @tracker = self.new(client)
-        sleep 120
+        sleep 60
       end
     end
   end  
