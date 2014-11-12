@@ -1,0 +1,643 @@
+HTTP/1.1 200 OK 
+Connection: keep-alive
+X-Frame-Options: sameorigin
+X-Xss-Protection: 1; mode=block
+Content-Type: text/html;charset=utf-8
+Content-Length: 15275
+Server: WEBrick/1.3.1 (Ruby/2.0.0/2014-05-08)
+Date: Wed, 12 Nov 2014 17:00:39 GMT
+Via: 1.1 vegur
+
+[
+  
+    {
+      "id": 5062,
+      "datetime": "2014-10-04T19:30:00+00:00",
+      "away_team": ["New Orleans Pelicans", "NOP"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5069,
+      "datetime": "2014-10-07T19:30:00+00:00",
+      "away_team": ["Orlando Magic", "ORL"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5092,
+      "datetime": "2014-10-11T17:00:00+00:00",
+      "away_team": ["Cleveland Cavaliers", "CLE"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5105,
+      "datetime": "2014-10-14T19:30:00+00:00",
+      "away_team": ["Atlanta Hawks", "ATL"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5122,
+      "datetime": "2014-10-17T20:30:00+00:00",
+      "away_team": ["Golden State Warriors", "GSW"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5129,
+      "datetime": "2014-10-18T20:30:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["San Antonio Spurs", "SAS"]
+    },
+  
+    {
+      "id": 5144,
+      "datetime": "2014-10-21T20:00:00+00:00",
+      "away_team": ["Houston Rockets", "HOU"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5166,
+      "datetime": "2014-10-24T20:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Memphis Grizzlies", "MEM"]
+    },
+  
+    {
+      "id": 5179,
+      "datetime": "2014-10-29T19:30:00+00:00",
+      "away_team": ["Washington Wizards", "WAS"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5202,
+      "datetime": "2014-11-01T19:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Philadelphia 76ers", "PHI"]
+    },
+  
+    {
+      "id": 5209,
+      "datetime": "2014-11-02T18:00:00+00:00",
+      "away_team": ["Toronto Raptors", "TOR"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5221,
+      "datetime": "2014-11-04T19:30:00+00:00",
+      "away_team": ["Houston Rockets", "HOU"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5225,
+      "datetime": "2014-11-05T19:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Charlotte Hornets", "CHA"]
+    },
+  
+    {
+      "id": 5255,
+      "datetime": "2014-11-08T19:30:00+00:00",
+      "away_team": ["Minnesota Timberwolves", "MIN"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5260,
+      "datetime": "2014-11-09T19:30:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Dallas Mavericks", "DAL"]
+    },
+  
+    {
+      "id": 5283,
+      "datetime": "2014-11-12T19:30:00+00:00",
+      "away_team": ["Indiana Pacers", "IND"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5291,
+      "datetime": "2014-11-14T19:30:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Atlanta Hawks", "ATL"]
+    },
+  
+    {
+      "id": 5312,
+      "datetime": "2014-11-16T18:00:00+00:00",
+      "away_team": ["Milwaukee Bucks", "MIL"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5320,
+      "datetime": "2014-11-17T19:30:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Brooklyn Nets", "BKN"]
+    },
+  
+    {
+      "id": 5338,
+      "datetime": "2014-11-20T20:00:00+00:00",
+      "away_team": ["LA Clippers", "LAC"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5357,
+      "datetime": "2014-11-22T19:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Orlando Magic", "ORL"]
+    },
+  
+    {
+      "id": 5362,
+      "datetime": "2014-11-23T18:00:00+00:00",
+      "away_team": ["Charlotte Hornets", "CHA"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5376,
+      "datetime": "2014-11-25T19:30:00+00:00",
+      "away_team": ["Golden State Warriors", "GSW"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5411,
+      "datetime": "2014-11-30T19:30:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["New York Knicks", "NYK"]
+    },
+  
+    {
+      "id": 5419,
+      "datetime": "2014-12-01T19:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Washington Wizards", "WAS"]
+    },
+  
+    {
+      "id": 5433,
+      "datetime": "2014-12-03T19:30:00+00:00",
+      "away_team": ["Atlanta Hawks", "ATL"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5454,
+      "datetime": "2014-12-05T20:30:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Milwaukee Bucks", "MIL"]
+    },
+  
+    {
+      "id": 5463,
+      "datetime": "2014-12-07T18:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Memphis Grizzlies", "MEM"]
+    },
+  
+    {
+      "id": 5482,
+      "datetime": "2014-12-09T21:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Phoenix Suns", "PHO"]
+    },
+  
+    {
+      "id": 5493,
+      "datetime": "2014-12-10T22:30:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Denver Nuggets", "DEN"]
+    },
+  
+    {
+      "id": 5501,
+      "datetime": "2014-12-12T21:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Utah Jazz", "UTA"]
+    },
+  
+    {
+      "id": 5520,
+      "datetime": "2014-12-14T18:00:00+00:00",
+      "away_team": ["Chicago Bulls", "CHI"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5534,
+      "datetime": "2014-12-16T19:30:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Brooklyn Nets", "BKN"]
+    },
+  
+    {
+      "id": 5539,
+      "datetime": "2014-12-17T19:30:00+00:00",
+      "away_team": ["Utah Jazz", "UTA"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5558,
+      "datetime": "2014-12-19T19:30:00+00:00",
+      "away_team": ["Washington Wizards", "WAS"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5570,
+      "datetime": "2014-12-21T18:00:00+00:00",
+      "away_team": ["Boston Celtics", "BOS"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5587,
+      "datetime": "2014-12-23T19:30:00+00:00",
+      "away_team": ["Philadelphia 76ers", "PHI"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5596,
+      "datetime": "2014-12-25T17:00:00+00:00",
+      "away_team": ["Cleveland Cavaliers", "CLE"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5617,
+      "datetime": "2014-12-27T19:30:00+00:00",
+      "away_team": ["Memphis Grizzlies", "MEM"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5631,
+      "datetime": "2014-12-29T19:30:00+00:00",
+      "away_team": ["Orlando Magic", "ORL"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5647,
+      "datetime": "2014-12-31T15:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Indiana Pacers", "IND"]
+    },
+  
+    {
+      "id": 5664,
+      "datetime": "2015-01-03T20:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Houston Rockets", "HOU"]
+    },
+  
+    {
+      "id": 5672,
+      "datetime": "2015-01-04T18:00:00+00:00",
+      "away_team": ["Brooklyn Nets", "BKN"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5704,
+      "datetime": "2015-01-08T22:30:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Portland Trail Blazers", "POR"]
+    },
+  
+    {
+      "id": 5729,
+      "datetime": "2015-01-11T15:30:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["LA Clippers", "LAC"]
+    },
+  
+    {
+      "id": 5738,
+      "datetime": "2015-01-13T22:30:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["LA Lakers", "LAL"]
+    },
+  
+    {
+      "id": 5746,
+      "datetime": "2015-01-14T22:30:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Golden State Warriors", "GSW"]
+    },
+  
+    {
+      "id": 5767,
+      "datetime": "2015-01-16T22:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Sacramento Kings", "SAC"]
+    },
+  
+    {
+      "id": 5791,
+      "datetime": "2015-01-20T19:30:00+00:00",
+      "away_team": ["Oklahoma City Thunder", "OKC"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5793,
+      "datetime": "2015-01-21T19:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Charlotte Hornets", "CHA"]
+    },
+  
+    {
+      "id": 5816,
+      "datetime": "2015-01-23T19:30:00+00:00",
+      "away_team": ["Indiana Pacers", "IND"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5825,
+      "datetime": "2015-01-25T13:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Chicago Bulls", "CHI"]
+    },
+  
+    {
+      "id": 5844,
+      "datetime": "2015-01-27T19:30:00+00:00",
+      "away_team": ["Milwaukee Bucks", "MIL"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5867,
+      "datetime": "2015-01-30T20:00:00+00:00",
+      "away_team": ["Dallas Mavericks", "DAL"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5884,
+      "datetime": "2015-02-01T13:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Boston Celtics", "BOS"]
+    },
+  
+    {
+      "id": 5897,
+      "datetime": "2015-02-03T19:30:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Detroit Pistons", "DET"]
+    },
+  
+    {
+      "id": 5902,
+      "datetime": "2015-02-04T20:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Minnesota Timberwolves", "MIN"]
+    },
+  
+    {
+      "id": 5925,
+      "datetime": "2015-02-06T21:30:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["San Antonio Spurs", "SAS"]
+    },
+  
+    {
+      "id": 5948,
+      "datetime": "2015-02-09T19:30:00+00:00",
+      "away_team": ["New York Knicks", "NYK"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5960,
+      "datetime": "2015-02-11T20:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Cleveland Cavaliers", "CLE"]
+    },
+  
+    {
+      "id": 5973,
+      "datetime": "2015-02-20T19:30:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["New York Knicks", "NYK"]
+    },
+  
+    {
+      "id": 5987,
+      "datetime": "2015-02-21T19:30:00+00:00",
+      "away_team": ["New Orleans Pelicans", "NOP"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 5998,
+      "datetime": "2015-02-23T19:30:00+00:00",
+      "away_team": ["Philadelphia 76ers", "PHI"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 6010,
+      "datetime": "2015-02-25T19:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Orlando Magic", "ORL"]
+    },
+  
+    {
+      "id": 6035,
+      "datetime": "2015-02-27T20:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["New Orleans Pelicans", "NOP"]
+    },
+  
+    {
+      "id": 6042,
+      "datetime": "2015-02-28T19:30:00+00:00",
+      "away_team": ["Atlanta Hawks", "ATL"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 6054,
+      "datetime": "2015-03-02T19:30:00+00:00",
+      "away_team": ["Phoenix Suns", "PHO"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 6075,
+      "datetime": "2015-03-04T20:00:00+00:00",
+      "away_team": ["LA Lakers", "LAL"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 6089,
+      "datetime": "2015-03-06T20:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Washington Wizards", "WAS"]
+    },
+  
+    {
+      "id": 6092,
+      "datetime": "2015-03-07T19:30:00+00:00",
+      "away_team": ["Sacramento Kings", "SAC"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 6107,
+      "datetime": "2015-03-09T19:30:00+00:00",
+      "away_team": ["Boston Celtics", "BOS"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 6126,
+      "datetime": "2015-03-11T19:30:00+00:00",
+      "away_team": ["Brooklyn Nets", "BKN"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 6141,
+      "datetime": "2015-03-13T19:30:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Toronto Raptors", "TOR"]
+    },
+  
+    {
+      "id": 6165,
+      "datetime": "2015-03-16T20:00:00+00:00",
+      "away_team": ["Cleveland Cavaliers", "CLE"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 6174,
+      "datetime": "2015-03-18T19:30:00+00:00",
+      "away_team": ["Portland Trail Blazers", "POR"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 6190,
+      "datetime": "2015-03-20T19:30:00+00:00",
+      "away_team": ["Denver Nuggets", "DEN"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 6211,
+      "datetime": "2015-03-22T15:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Oklahoma City Thunder", "OKC"]
+    },
+  
+    {
+      "id": 6225,
+      "datetime": "2015-03-24T20:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Milwaukee Bucks", "MIL"]
+    },
+  
+    {
+      "id": 6230,
+      "datetime": "2015-03-25T19:30:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Boston Celtics", "BOS"]
+    },
+  
+    {
+      "id": 6250,
+      "datetime": "2015-03-27T19:30:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Atlanta Hawks", "ATL"]
+    },
+  
+    {
+      "id": 6262,
+      "datetime": "2015-03-29T18:00:00+00:00",
+      "away_team": ["Detroit Pistons", "DET"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 6277,
+      "datetime": "2015-03-31T20:00:00+00:00",
+      "away_team": ["San Antonio Spurs", "SAS"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 6292,
+      "datetime": "2015-04-02T20:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Cleveland Cavaliers", "CLE"]
+    },
+  
+    {
+      "id": 6306,
+      "datetime": "2015-04-04T19:30:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Detroit Pistons", "DET"]
+    },
+  
+    {
+      "id": 6316,
+      "datetime": "2015-04-05T18:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Indiana Pacers", "IND"]
+    },
+  
+    {
+      "id": 6325,
+      "datetime": "2015-04-07T19:30:00+00:00",
+      "away_team": ["Charlotte Hornets", "CHA"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 6341,
+      "datetime": "2015-04-09T20:00:00+00:00",
+      "away_team": ["Chicago Bulls", "CHI"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 6358,
+      "datetime": "2015-04-11T19:30:00+00:00",
+      "away_team": ["Toronto Raptors", "TOR"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 6378,
+      "datetime": "2015-04-13T19:30:00+00:00",
+      "away_team": ["Orlando Magic", "ORL"],
+      "home_team": ["Miami Heat", "MIA"]
+    },
+  
+    {
+      "id": 6390,
+      "datetime": "2015-04-15T20:00:00+00:00",
+      "away_team": ["Miami Heat", "MIA"],
+      "home_team": ["Philadelphia 76ers", "PHI"]
+    }
+  
+]
