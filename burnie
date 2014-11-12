@@ -14,6 +14,7 @@ require './lib/subreddits.rb'
 require './lib/tasks/game_thread.rb'
 require './lib/tasks/schedule.rb'
 require './lib/tasks/standings.rb'
+require './lib/trackers/current_game_tracker.rb'
 require './lib/teams.rb'
 
 client = RedditKit::Client.new 
@@ -45,6 +46,10 @@ if client.signed_in?
 
       comment_listener = Daemons.call(daemon_options) do
         PrimaryListener.listen(client)
+      end
+
+      score_tracker = Daemons.call(daemon_options) do
+        CurrentGameTracker.track(client)
       end
     end
   ensure
