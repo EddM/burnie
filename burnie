@@ -35,8 +35,17 @@ if client.signed_in?
       task = GameThreadTask.new
       task.call(client)
     else
-      Daemons.daemonize({ log_output: true })
-      PrimaryListener.listen(client)
+      daemon_options = {
+        app_name: "burnie",
+        multiple: true, 
+        log_output: true, 
+        dir: File.dirname(__FILE__), 
+        dir_mode: :normal
+      }
+
+      comment_listener = Daemons.call(daemon_options) do
+        PrimaryListener.listen(client)
+      end
     end
   ensure
     client.sign_out
