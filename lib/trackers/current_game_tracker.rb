@@ -50,7 +50,8 @@ class CurrentGameTracker
 
     if new_away_score != @current_game["away_score"] || new_home_score != @current_game["home_score"]
       @current_game["away_score"], @current_game["home_score"] = new_away_score, new_home_score
-      @current_game["last_updated_time"] = doc.css("#nbaGITmeQtr h2").text
+      @current_game["last_updated_time"] = doc.css("#nbaGITmeQtr h2, #nbaGITmeQtr p").collect(&:text).join(" ")
+      puts " - Updating score... #{@current_game["away_score"]} - #{@current_game["home_score"]}"
 
       fetch_stat_leaders(doc)
       update_sidebar
@@ -104,7 +105,7 @@ class CurrentGameTracker
           assists = cells[10].text.to_i
           rebounds = cells[9].text.to_i
 
-          team_stats[cells[0].text] = [points, assists, rebounds] if points > 0
+          team_stats[cells[0].text.strip] = [points, assists, rebounds] if points > 0
         end
       end
 
