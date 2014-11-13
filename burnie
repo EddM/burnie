@@ -11,39 +11,39 @@ client = RedditKit::Client.new
 client.user_agent = "Burnie (/r/Heat) 1.0"
 client.sign_in Configuration["username"], Configuration["password"]
 
+at_exit do
+  client.sign_out
+end
+
 if client.signed_in?
-  begin
-    case ARGV[0]
-    when "schedule"
-      task = ScheduleTask.new
-      year, month, day = Time.now.year, Time.now.month, Time.now.day
-      month = 10 if month < 10 && year < 2015
-      task.call(client, year, month, day)
-    when "standings"
-      task = StandingsTask.new
-      task.call(client)
-    when "gamethread"
-      task = GameThreadTask.new
-      task.call(client)
-    else
-      daemon_options = {
-        app_name: "burnie",
-        multiple: true, 
-        log_output: true, 
-        dir: File.dirname(__FILE__), 
-        dir_mode: :normal
-      }
+  case ARGV[0]
+  when "schedule"
+    task = ScheduleTask.new
+    year, month, day = Time.now.year, Time.now.month, Time.now.day
+    month = 10 if month < 10 && year < 2015
+    task.call(client, year, month, day)
+  when "standings"
+    task = StandingsTask.new
+    task.call(client)
+  when "gamethread"
+    task = GameThreadTask.new
+    task.call(client)
+  else
+    daemon_options = {
+      app_name: "burnie",
+      multiple: true, 
+      log_output: true, 
+      dir: File.dirname(__FILE__), 
+      dir_mode: :normal
+    }
 
-      comment_listener = Daemons.call(daemon_options) do
-        PrimaryListener.listen(client)
-      end
-
-      score_tracker = Daemons.call(daemon_options) do
-        CurrentGameTracker.track(client)
-      end
+    comment_listener = Daemons.call(daemon_options) do
+      PrimaryListener.listen(client)
     end
-  ensure
-    client.sign_out
+
+    score_tracker = Daemons.call(daemon_options) do
+      CurrentGameTracker.track(client)
+    end
   end
 else
   puts "Failed auth :("
