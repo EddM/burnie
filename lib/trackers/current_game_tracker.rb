@@ -65,7 +65,7 @@ class CurrentGameTracker
   def update_sidebar
     subreddit_attributes = @client.subreddit_attributes(Configuration["subreddit"])
     sidebar_text = subreddit_attributes[:description]
-    @original_sidebar_text ||= sidebar_text
+    @original_sidebar_text ||= sidebar_text.dup
     sidebar_text.gsub!(/######(.*)\n\n/, "#######{self.score_string}\n\n")
 
     @client.update_subreddit(Configuration["subreddit"], {
