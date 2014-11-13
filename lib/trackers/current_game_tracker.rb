@@ -12,13 +12,13 @@ class CurrentGameTracker
 
   def initialize(client)
     @client = client
-    @sleep_duration = 15
+    @sleep_duration = 30
     @started_at = Time.now
 
     @current_game = self.games.find do |game|
       now = Time.now.in_time_zone("Eastern Time (US & Canada)") + 10.minutes
       game_starts_at = Time.parse(game["datetime"]).to_datetime.utc.change(:offset => "-05:00")
-      game_end_threshold = game_starts_at + 6.hours
+      game_end_threshold = game_starts_at + 4.hours
 
       game_starts_at.to_datetime < now.to_datetime && game_end_threshold.to_datetime > now.to_datetime
     end
@@ -29,7 +29,7 @@ class CurrentGameTracker
   end
 
   def ends_at
-    @ends_at ||= @started_at + 6.hours
+    @ends_at ||= @started_at + 4.hours
   end
 
   def data_url
