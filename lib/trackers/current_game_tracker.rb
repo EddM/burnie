@@ -62,7 +62,7 @@ class CurrentGameTracker
     subreddit_attributes = @client.subreddit_attributes(Configuration["subreddit"])
     sidebar_text = subreddit_attributes[:description]
     @original_sidebar_text ||= sidebar_text
-    sidebar_text.gsub!(/######(.*)\n\n/imx, "#######{self.score_string}\n\n##")
+    sidebar_text.gsub!(/######(.*)\n\n/, "#######{self.score_string}\n\n")
 
     @client.update_subreddit(Configuration["subreddit"], {
       :description => sidebar_text
