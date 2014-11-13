@@ -40,7 +40,7 @@ class CurrentGameTracker
       game_time = Time.parse(@current_game["datetime"])
       date_string = "#{game_time.year}#{game_time.month}#{game_time.day.to_s.rjust(2, '0')}"
 
-      @data_url = "http://www.nba.com/games/#{date_string}/#{team_string}/gameinfo.html"
+      @data_url = "http://www.nba.com/games/#{date_string}/#{team_string}/gameinfo.html?c=#{Time.now.to_i}"
     end
   end
 
