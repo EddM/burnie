@@ -22,6 +22,10 @@ class CurrentGameTracker
 
       game_starts_at.to_datetime < now.to_datetime && game_end_threshold.to_datetime > now.to_datetime
     end
+
+    at_exit do
+      self.reset_sidebar
+    end
   end
 
   def active?
