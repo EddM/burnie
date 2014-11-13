@@ -45,12 +45,7 @@ class CurrentGameTracker
   end
 
   def check
-    uri = URI(@data_url)
-    http = Net::HTTP.new(uri.host, uri.port)
-    headers = { 'Cache-Control' => 'no-cache' }
-    response = http.get(uri.path, headers)
-
-    doc = Nokogiri::HTML response.body
+    doc = Nokogiri::HTML open(self.data_url).read
     new_away_score, new_home_score = doc.css("#nbaGIGameScore h1").collect(&:text).collect(&:to_i)
 
     if new_away_score != @current_game["away_score"] || new_home_score != @current_game["home_score"]
