@@ -141,6 +141,7 @@ class CurrentGameTracker
 
         puts " - Checking to see if there's a live game"
         @tracker = self.new(client)
+        @tracker.check if @tracker.active?
         sleep 60
       end
     end
