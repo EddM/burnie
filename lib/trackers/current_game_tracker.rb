@@ -16,7 +16,7 @@ class CurrentGameTracker
     @started_at = Time.now
 
     @current_game = self.games.find do |game|
-      now = Time.now.in_time_zone("Eastern Time (US & Canada)") + 30.minutes # now (in ET) + 30 minutes
+      now = Time.now.in_time_zone("Eastern Time (US & Canada)") + 10.minutes
       game_starts_at = Time.parse(game["datetime"]).to_datetime.utc.change(:offset => "-05:00")
       game_end_threshold = game_starts_at + 6.hours
 
