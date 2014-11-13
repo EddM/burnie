@@ -77,13 +77,11 @@ class CurrentGameTracker
     " ([#{@current_game["last_updated_time"]}](#{self.data_url}))"]
 
     stat_leaders = @current_game["leaders"].collect do |team|
-      team.max_by do |player, stats|
-        stats[0]
-      end
+      team.max_by { |player, stats| stats[0] }
     end.compact
 
     if stat_leaders.any?
-      markdown << stat_leaders.collect do |leader| 
+      markdown << stat_leaders.sort_by { |leader| leader[1][0] }.reverse.collect do |leader| 
         "#{leader[0]} (#{leader[1][0]} PTS, #{leader[1][1]} AST, #{leader[1][2]} REB)"
       end.join(", ")
     end
