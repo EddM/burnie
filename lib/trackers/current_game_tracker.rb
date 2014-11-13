@@ -71,9 +71,9 @@ class CurrentGameTracker
 
   def score_string
     markdown = ["LIVE SCORE UPDATE: " + 
-    "[#{@current_game["away_team"][0]}](/r/#{Subreddits[@current_game["away_team"][1]]}) **#{@current_game["away_score"]}" +
+    "[#{@current_game["away_team"][0]}](/r/#{Subreddits[@current_game["away_team"][1]]}) *#{@current_game["away_score"]}" +
     " @ " + 
-    "#{@current_game["home_score"]}** [#{@current_game["home_team"][0]}](/r/#{Subreddits[@current_game["home_team"][1]]})" +
+    "#{@current_game["home_score"]}* [#{@current_game["home_team"][0]}](/r/#{Subreddits[@current_game["home_team"][1]]})" +
     " ([#{@current_game["last_updated_time"]}](#{self.data_url}))"]
 
     stat_leaders = @current_game["leaders"].collect do |team|
