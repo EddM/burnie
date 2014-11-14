@@ -14,7 +14,7 @@ class RelatedSubredditsTask
   def update_sidebar
     subreddit_attributes = @client.subreddit_attributes(Configuration["subreddit"])
     sidebar_text = subreddit_attributes[:description]
-    links_markdown = "###Top Related Sub Links"
+    links_markdown = "###Top Related Sub Links\n\n"
 
     top_links.each_with_index do |link, i|
       links_markdown << "#{i + 1}. [#{link.title}](#{link.permalink})\n"
