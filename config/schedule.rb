@@ -3,6 +3,10 @@
 
 job_type :burnie, 'cd /opt/burnie && /opt/burnie/burnie :task'
 
+every 30.minutes do
+  burnie "related"
+end
+
 every 1.day, :at => "9:00 am" do
   burnie "gamethread"
 end
