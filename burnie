@@ -7,7 +7,7 @@ require 'daemons'
 
 require './lib/burnie'
 
-client = RedditKit::Client.new 
+client = RedditKit::Client.new
 client.user_agent = "Burnie (/r/Heat) 1.0"
 client.sign_in Configuration["username"], Configuration["password"]
 
@@ -28,12 +28,15 @@ if client.signed_in?
   when "gamethread"
     task = GameThreadTask.new
     task.call(client)
+  when "related"
+    task = RelatedSubredditsTask.new
+    task.call(client)
   else
     daemon_options = {
       app_name: "burnie",
-      multiple: true, 
-      log_output: true, 
-      dir: File.dirname(__FILE__), 
+      multiple: true,
+      log_output: true,
+      dir: File.dirname(__FILE__),
       dir_mode: :normal
     }
 
