@@ -30,7 +30,7 @@ class ScheduleTask
           if day[1]
             char, team = day[1]
             team_subreddit = Subreddits[team]
-            "^^#{day[0].day} [#{char if char == "@"}#{team}](/r/#{team_subreddit || "NBA"} \"#{"(Preseason)" if day[0].month <= StartOfSeason[0] && day[0].day <= StartOfSeason[1]} #{day[0].strftime("%R")} ET\")"
+            "^^#{day[0].day} [#{char if char == "@"}#{team}](/r/#{team_subreddit || "NBA"} \"#{"(Preseason)" if day[0].month == StartOfSeason[0] && day[0].day <= StartOfSeason[1]} #{day[0].strftime("%R")} ET\")"
           else
             "^^#{day[0].day}"
           end
