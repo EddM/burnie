@@ -13,7 +13,7 @@ class GameThreadTask
       if game_time.year == today.year && game_time.month == today.month && game_time.day == today.day
         puts " - Building game thread for #{game["away_team"][1]} @ #{game["home_team"][1]}"
 
-        detail_url = "http://www.nba.com/games/#{game_time.year}#{game_time.month}#{game_time.day.to_s.rjust(2, '0')}/#{game["away_team"][1]}#{game["home_team"][1]}/gameinfo.html"
+        detail_url = "http://www.nba.com/games/#{game_time.year}#{game_time.month.to_s.rjust(2, '0')}#{game_time.day.to_s.rjust(2, '0')}/#{game["away_team"][1]}#{game["home_team"][1]}/gameinfo.html"
         detail = Nokogiri::HTML open(detail_url).read
         away_stats = [detail.css(".nbaGIHomeStatCat td")[2], detail.css(".nbaGIHomeStatCat td")[3]]
         home_stats = [detail.css(".nbaGIAwayStatCat td")[2], detail.css(".nbaGIAwayStatCat td")[3]]
