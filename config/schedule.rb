@@ -14,4 +14,5 @@ end
 every 1.day, :at => "9:00 am" do
   burnie "schedule"
   burnie "standings"
+  burnie "playoffs"
 end

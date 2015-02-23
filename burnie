@@ -31,6 +31,9 @@ if client.signed_in?
   when "related"
     task = RelatedSubredditsTask.new
     task.call(client)
+  when "playoffs"
+    task = PlayoffPictureTask.new
+    task.call(client)
   else
     daemon_options = {
       app_name: "burnie",
