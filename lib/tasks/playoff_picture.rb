@@ -3,6 +3,7 @@ require "nokogiri"
 
 class PlayoffPictureTask
   DataSource = "http://espn.go.com/nba/playoffs/matchups"
+  RecordRegex = /\([0-9]{1,2}\-[0-9]{1,2}(\,.\.[0-9]{3})?\)/i
 
   def call(client)
     @client = client
@@ -28,8 +29,8 @@ class PlayoffPictureTask
     table << "|R1|R2|ECF|"
     table << "|:--:|:--:|:--:|"
     matchups.each_with_index do |matchup, i|
-      team1 = matchup[0].gsub(/\([0-9]\)./, "")
-      team2 = matchup[1].gsub(/\([0-9]\)./, "")
+      team1 = matchup[0].gsub(/(\([0-9]\).)|.#{RecordRegex}/, "")
+      team2 = matchup[1].gsub(/(\([0-9]\).)|.#{RecordRegex}/, "")
       subreddits = [Subreddits[Teams[team1]], Subreddits[Teams[team2]]]
       table << "|*[](/r/#{subreddits[0]}) #{matchup[0]}* *[](/r/#{subreddits[1]}) #{matchup[1]}*|-|#{"-" if i == 1 || i == 2}|"
     end
@@ -45,10 +46,12 @@ class PlayoffPictureTask
     table = doc.css(".col-main table").first
 
     table.css("tr.colhead").map do |row|
-      team1 = row.next_element
-      team2 = team1.next_element
-
-      [team1.css("strong").text, team2.css("strong").text]
+      [row.next_element, row.next_element.next_element].map do |element|
+        record = element.css("td").last.inner_html.split("<br>").first[RecordRegex]
+        wins, losses = record.gsub(/\(|\)/, "").split("-").map(&:to_i)
+        record = "(#{wins}-#{losses}, #{(wins.to_f / (wins + losses)).round(3).to_s.gsub(/^0/, "")})"
+        "#{element.css("strong").text} `#{record}`"
+      end
     end
   end
 end
