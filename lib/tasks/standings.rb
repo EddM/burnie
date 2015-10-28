@@ -3,7 +3,7 @@ require 'nokogiri'
 
 class StandingsTask
 
-  DataSource = 'http://espn.go.com/nba/standings/_/group/3'
+  DataSource = 'http://espn.go.com/nba/standings/_/group/division'
 
   def call(client)
     @client = client
@@ -42,15 +42,17 @@ class StandingsTask
 
     resource = open(DataSource)
     doc = Nokogiri::HTML(resource.read)
-    row = doc.css('tr.colhead').select { |tr| tr.text =~ /southeast/i }.first
+    thead = doc.css("thead.standings-categories").select { |el| el.text =~ /southeast/i }.first
+    row = thead.next_element
 
     @standings = []
     5.times do
-      if row = row.next_element
+      if row
         cells = row.css('td')
-        team_name = cells[0].css('a')[0].text
+        team_name = cells[0].css('a')[1].text.split(" ")[0]
         wins, losses, percentage = cells[1].text, cells[2].text, cells[3].text
         @standings << [team_name, wins.to_i, losses.to_i, percentage]
+        row = row.next_element
       end
     end
 
