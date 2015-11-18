@@ -1,7 +1,7 @@
 class GameThreadTask
 
   DataSource = "http://nba-schedule.herokuapp.com/schedule/MIA.json"
-  PreSeasonGames = 8
+  PreSeasonGames = 2
 
   def call(client)
     @client = client
