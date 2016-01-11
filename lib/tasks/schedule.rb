@@ -54,7 +54,7 @@ class ScheduleTask
   end
 
   def date_range(year, month)
-    [Date.civil(year, month, 1).to_datetime, Date.civil(year, month, -1).to_datetime]
+    [Date.civil(year, month, 1).to_datetime, Date.civil(year, month, -1).to_datetime.at_end_of_day]
   end
 
   def fetch(year, month, day)
