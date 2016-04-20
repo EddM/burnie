@@ -46,7 +46,7 @@ class ScheduleTask
   def update_sidebar(full_markdown)
     subreddit_attributes = @client.subreddit_attributes(Configuration["subreddit"])
     sidebar_text = subreddit_attributes[:description]
-    sidebar_text.gsub!(/\#\#(.*?)Schedule(.*?)\#\#/imx, "#{full_markdown}\n\n##")
+    sidebar_text.gsub!(/\#\#(.*?)(January|February|March|April|May|June|July|August|September|October|November|December) Schedule(.*?)\#\#/imx, "#{full_markdown}\n\n##")
 
     @client.update_subreddit(Configuration["subreddit"], {
       :description => sidebar_text
