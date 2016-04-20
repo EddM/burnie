@@ -12,6 +12,7 @@ class PlayoffPictureTask
 
     update_matchups
     update_schedule
+    post_game_thread
   end
 
   private
@@ -36,6 +37,59 @@ class PlayoffPictureTask
     @client.update_subreddit(Configuration["subreddit"], {
       :description => sidebar_text
     })
+  end
+
+  def post_game_thread
+    data = matchup_data
+    today_string = Time.now.strftime("%Y%m%d")
+
+    data["sports_content"]["round"].each do |round|
+      round["conference"][0]["series"].each do |series|
+        next unless series["teams"].any? { |team| team["team_key"] == "MIA" }
+
+        series["game"].each do |game|
+          if game["date"] == today_string
+            game_time = Time.parse("#{game["date"]}#{game["time"]}")
+            detail_url = "http://www.nba.com/games/#{game_time.year}#{game_time.month.to_s.rjust(2, '0')}#{game_time.day.to_s.rjust(2, '0')}/#{game["visitor"]["abbreviation"]}#{game["home"]["abbreviation"]}/gameinfo.html"
+            media = game["broadcasters"]["tv"]["broadcaster"].collect { |b| b["display_name"] } +
+                    game["broadcasters"]["radio"]["broadcaster"].collect { |b| b["display_name"] }
+
+            body = [
+              "**##{game["playoffs"]["visitor_seed"]} [#{game["visitor"]["city"]} #{game["visitor"]["nickname"]}](/r/#{Subreddits[game["visitor"]["abbreviation"]]}) (#{game["playoffs"]["visitor_wins"]}) @ " \
+              "##{game["playoffs"]["home_seed"]} [#{game["home"]["city"]} #{game["home"]["nickname"]}](/r/#{Subreddits[game["home"]["abbreviation"]]}) (#{game["playoffs"]["home_wins"]})**",
+              "",
+              "#{round_number_to_string(game["playoffs"]["round"])}, Game #{game["playoffs"]["game_number"]}",
+              "",
+              "",
+              "|Game Details||",
+              "|:---|:---|",
+              "|**Location:**|#{game["arena"]}, #{game["city"]}, #{game["state"]}|",
+              "|**Tip-off time:**|#{game_time.strftime("%I:%M%p")} Eastern (#{(game_time - 3600).strftime("%I:%M%p")} Central, #{(game_time - 10800).strftime("%I:%M%p")} Pacific, #{(game_time + 18000).strftime("%I:%M%p")} GMT)|",
+              "|**TV/Radio:**|#{media.join(" / ")}|",
+              "|**Game Info & Stats:**|[NBA.com](#{detail_url})|",
+              "",
+            ].join("\n")
+
+            title = "#{game["visitor"]["city"]} #{game["visitor"]["nickname"]} (#{game["playoffs"]["visitor_wins"]}) @ #{game["home"]["city"]} #{game["home"]["nickname"]} (#{game["playoffs"]["home_wins"]}) - #{round_number_to_string(game["playoffs"]["round"])}, Game #{game["playoffs"]["game_number"]} - #{game_time.month}/#{game_time.day}, #{game_time.strftime("%I:%M %p")} ET"
+
+            response = @client.submit "[Game Thread] #{title}", Configuration["subreddit"], { text: body, extension: 'json' }
+          end
+        end
+      end
+    end
+  end
+
+  def round_number_to_string(number)
+    case number.to_i
+    when 1
+      "First Round"
+    when 2
+      "Semi-Finals"
+    when 3
+      "Conference Finals"
+    when 4
+      "Finals"
+    end
   end
 
   def schedule_to_markdown(schedule)
@@ -112,8 +166,7 @@ class PlayoffPictureTask
   end
 
   def schedule
-    data = open(CurrentMatchupDataSource).read.gsub(/callbackWrapper\(|\)\;/, "")
-    data = JSON.parse(data)
+    data = matchup_data
 
     data["sports_content"]["round"].each do |round|
       next if round["completed"] != ""
@@ -122,5 +175,9 @@ class PlayoffPictureTask
         return series if series["teams"].any? { |team| team["team_key"] == "MIA" }
       end
     end
+  end
+
+  def matchup_data
+    @matchup_data ||= JSON.parse(open(CurrentMatchupDataSource).read.gsub(/callbackWrapper\(|\)\;/, ""))
   end
 end
