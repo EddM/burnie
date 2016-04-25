@@ -167,9 +167,10 @@ class PlayoffPictureTask
 
   def schedule
     data = matchup_data
+    data = data[0] if data.is_a?(Array)
 
     data["sports_content"]["round"].each do |round|
-      next if round["completed"] != ""
+      next if round["completed"] == "1"
 
       round["conference"][0]["series"].each do |series|
         return series if series["teams"].any? { |team| team["team_key"] == "MIA" }
