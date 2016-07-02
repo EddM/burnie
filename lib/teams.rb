@@ -12,7 +12,22 @@ Teams = {
   "Detroit" => "DET",
   "Indiana" => "IND",
   "Boston" => "BOS",
-  "Orlando" => "ORL",
   "Philadelphia" => "PHI",
-  "New York" => "NY"
+  "New York" => "NY",
+
+  "LA Clippers" => "LAC",
+  "LA Lakers" => "LAL",
+  "Phoenix" => "PHO",
+  "Sacramento" => "SAC",
+  "Golden State" => "GS",
+  "San Antonio" => "SA",
+  "Dallas" => "DAL",
+  "Houston" => "HOU",
+  "New Orleans" => "NO",
+  "Memphis" => "MEM",
+  "Portland" => "POR",
+  "Oklahoma City" => "OKC",
+  "Utah" => "UTA",
+  "Denver" => "DEN",
+  "Minnesota" => "MIN"
 }
