@@ -7,6 +7,8 @@ require './lib/tasks/playoff_picture.rb'
 require './lib/tasks/related_subreddits_task.rb'
 require './lib/tasks/schedule.rb'
 require './lib/tasks/standings.rb'
+require './lib/tasks/summer_league.rb'
+require './lib/tasks/summer_league/game_thread.rb'
 require './lib/trackers/current_game_tracker.rb'
 require './lib/teams.rb'
 
