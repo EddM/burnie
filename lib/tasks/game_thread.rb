@@ -1,63 +1,72 @@
 class GameThreadTask
-
-  DataSource = "http://nba-schedule.herokuapp.com/schedule/MIA.json"
-  PreSeasonGames = 2
+  TZ = "Eastern Time (US & Canada)"
 
   def call(client)
     @client = client
-    today = Time.now
+    data = JSON.parse(open(data_source).read)
 
-    games.each_with_index do |game, i|
-      game_time = Time.parse(game["datetime"])
-
-      if game_time.year == today.year && game_time.month == today.month && game_time.day == today.day
-        puts " - Building game thread for #{game["away_team"][1]} @ #{game["home_team"][1]}"
-
-        detail_url = "http://www.nba.com/games/#{game_time.year}#{game_time.month.to_s.rjust(2, '0')}#{game_time.day.to_s.rjust(2, '0')}/#{game["away_team"][1]}#{game["home_team"][1]}/gameinfo.html"
-        detail = Nokogiri::HTML open(detail_url).read
-        away_stats = [detail.css(".nbaGIHomeStatCat td")[2], detail.css(".nbaGIHomeStatCat td")[3]]
-        home_stats = [detail.css(".nbaGIAwayStatCat td")[2], detail.css(".nbaGIAwayStatCat td")[3]]
-        media = detail.css("#nbaGITvInfo tr").map do |tr|
-          td = tr.css("td#nbaGIWatch").first
-
-          if td
-            td.text.strip
-          elsif td = tr.css("td#nbaGITvFirst")[2]
-            td.text.strip
-          end
-        end.compact
-
-        title = "#{game["away_team"][0]} (#{away_stats.join("-")}) @ #{game["home_team"][0]} (#{home_stats.join("-")}) - #{game_time.month}/#{game_time.day}, #{game_time.strftime("%I:%M %p")} ET"
-
-        body = [
-          "**[#{game["away_team"][0]}](/r/#{Subreddits[game["away_team"][1]]}) @ [#{game["home_team"][0]}](/r/#{Subreddits[game["home_team"][1]]})**",
-          "",
-          "Regular Season, Game #{i - (PreSeasonGames - 1)}",
-          "",
-          "",
-          "|Game Details||",
-          "|:---|:---|",
-          "|**Location:**|#{detail.css(".nbaGILocat").text}|",
-          "|**Tip-off time:**|#{game_time.strftime("%I:%M%p")} Eastern (#{(game_time - 3600).strftime("%I:%M%p")} Central, #{(game_time - 10800).strftime("%I:%M%p")} Pacific, #{(game_time + 18000).strftime("%I:%M%p")} GMT)|",
-          "|**TV/Radio:**|#{media.join(" / ")}|",
-          "|**Game Info & Stats:**|[NBA.com](#{detail_url}) / [BoxScoreReplay.com](http://www.boxscorereplay.com/#{game_time.month}#{game_time.day}-#{game["away_team"][0].downcase.gsub(" ", "-")}-#{game["home_team"][0].downcase.gsub(" ", "-")})|",
-          "",
-          "Let's go heat!"
-        ].join("\n")
-
-        response = client.submit "[Game Thread] #{title}", Configuration["subreddit"], { text: body, extension: 'json' }
-        puts " - Posted game thread"
-
-        # client.set_sticky_post link, true
-        # puts "   - Stickied"
-      end
+    data["games"].each do |game|
+      post_game_thread(game) if game["vTeam"]["triCode"] == "MIA" || game["hTeam"]["triCode"] == "MIA"
     end
   end
 
-  def games
-    return @games if @games
-    data = open(DataSource).read
-    @games = JSON.parse(data)
+  def data_source
+    today = Time.now
+    date_string = "#{today.year}#{today.month.to_s.rjust(2, "0")}#{(today.day + 1).to_s.rjust(2, "0")}"
+
+    "http://data.nba.net/data/10s/prod/v1/#{date_string}/scoreboard.json"
   end
 
+  private
+
+  def team_data
+    @team_data ||= begin
+      data_source = "http://data.nba.net/data/10s/prod/v1/2016/teams.json"
+      data = JSON.parse(open(data_source).read)
+      teams = data["league"]["standard"]
+      Hash[*teams.collect { |team| [team_datum_key(team), team] }.flatten]
+    end
+  end
+
+  def team_datum_key(team_data)
+    team_data["tricode"]
+  end
+
+  def post_game_thread(game)
+    game_time = Time.parse("#{game["startTimeUTC"]}").in_time_zone(TZ)
+    detail_url = "http://www.nba.com/games/#{game_time.year}#{game_time.month.to_s.rjust(2, '0')}#{game_time.day.to_s.rjust(2, '0')}/#{game["vTeam"]["triCode"]}#{game["hTeam"]["triCode"]}/gameinfo.html"
+
+    visitor_team = team_data[game["vTeam"]["triCode"]]
+    home_team = team_data[game["hTeam"]["triCode"]]
+    title = "#{visitor_team["city"]} #{visitor_team["nickname"]} (#{game["vTeam"]["win"]}-#{game["vTeam"]["loss"]}) " \
+            "@ " \
+            "#{home_team["city"]} #{home_team["nickname"]} (#{game["hTeam"]["win"]}-#{game["hTeam"]["loss"]}) - " \
+            "#{"Preseason - " if game["seasonStageId"] == 1}" \
+            "#{game_time.month}/#{game_time.day}, #{game_time.strftime("%I:%M %p")} ET"
+
+    media = game["watch"]["broadcast"]["broadcasters"]["national"] +
+            game["watch"]["broadcast"]["broadcasters"]["vTeam"] +
+            game["watch"]["broadcast"]["broadcasters"]["hTeam"]
+
+    broadcasters = media.collect { |broadcaster| broadcaster["longName"] }
+    arena = Arenas[home_team["tricode"]].join(", ")
+
+    body = [
+      "**" \
+      "[#{visitor_team["city"]} #{visitor_team["nickname"]}](/r/#{Subreddits[visitor_team["abbreviation"]]}) " \
+      "(#{game["vTeam"]["win"]}-#{game["vTeam"]["loss"]}) " \
+      "@ " \
+      "[#{home_team["city"]} #{home_team["nickname"]}](/r/#{Subreddits[home_team["abbreviation"]]}) " \
+      "(#{game["hTeam"]["win"]}-#{game["hTeam"]["loss"]}) " \
+      "**",
+      ("\nPreseason" if game["seasonStageId"] == 1),
+      "",
+      "|Game Details||",
+      "|:---|:---|",
+      "|**Location:**|#{arena}|",
+      "|**Tip-off time:**|#{game_time.strftime("%I:%M%p")} Eastern (#{(game_time - 3600).strftime("%I:%M%p")} Central, #{(game_time - 10800).strftime("%I:%M%p")} Pacific, #{(game_time + 18000).strftime("%I:%M%p")} GMT)|",
+      "|**TV/Radio:**|#{broadcasters.join(" / ")} / League Pass|",
+      "|**Game Info & Stats:**|[NBA.com](#{detail_url})|",
+    ].compact.join("\n")
+  end
 end
