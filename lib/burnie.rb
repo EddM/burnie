@@ -10,6 +10,7 @@ require './lib/tasks/standings.rb'
 require './lib/tasks/summer_league.rb'
 require './lib/tasks/summer_league/game_thread.rb'
 require './lib/trackers/current_game_tracker.rb'
+require './lib/arenas.rb'
 require './lib/teams.rb'
 
 require './support/redditkit_extensions'

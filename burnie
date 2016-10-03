@@ -8,7 +8,7 @@ require 'daemons'
 require './lib/burnie'
 
 client = RedditKit::Client.new
-client.user_agent = "Burnie (/r/Heat) 1.0"
+client.user_agent = "Burnie (/r/Heat) 2.0"
 client.sign_in Configuration["username"], Configuration["password"]
 
 at_exit do
