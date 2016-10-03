@@ -12,7 +12,7 @@ class GameThreadTask
 
   def data_source
     today = Time.now
-    date_string = "#{today.year}#{today.month.to_s.rjust(2, "0")}#{(today.day + 1).to_s.rjust(2, "0")}"
+    date_string = "#{today.year}#{today.month.to_s.rjust(2, "0")}#{today.day.to_s.rjust(2, "0")}"
 
     "http://data.nba.net/data/10s/prod/v1/#{date_string}/scoreboard.json"
   end
