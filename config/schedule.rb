@@ -3,7 +3,7 @@
 
 job_type :burnie, 'cd /opt/burnie && /opt/burnie/burnie :task'
 
-every 1.day, at: "1:00 pm" do
+every 1.day, at: "11:00 am" do
   burnie "gamethread"
   # burnie "playoffs"
   # burnie "summer_league:gamethread"
