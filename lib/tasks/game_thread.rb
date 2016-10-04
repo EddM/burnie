@@ -68,5 +68,7 @@ class GameThreadTask
       "|**TV/Radio:**|#{broadcasters.join(" / ")} / League Pass|",
       "|**Game Info & Stats:**|[NBA.com](#{detail_url})|",
     ].compact.join("\n")
+
+    response = @client.submit "[Game Thread] #{title}", Configuration["subreddit"], { text: body, extension: "json" }
   end
 end
