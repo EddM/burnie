@@ -53,11 +53,11 @@ class GameThreadTask
 
     body = [
       "**" \
-      "[#{visitor_team["city"]} #{visitor_team["nickname"]}](/r/#{Subreddits[visitor_team["abbreviation"]]}) " \
-      "(#{game["vTeam"]["win"]}-#{game["vTeam"]["loss"]}) " \
-      "@ " \
-      "[#{home_team["city"]} #{home_team["nickname"]}](/r/#{Subreddits[home_team["abbreviation"]]}) " \
-      "(#{game["hTeam"]["win"]}-#{game["hTeam"]["loss"]}) " \
+      "[#{visitor_team["city"]} #{visitor_team["nickname"]}](/r/#{Subreddits[visitor_team["tricode"]]}) " \
+      "(#{game["vTeam"]["win"]}-#{game["vTeam"]["loss"]})" \
+      " @ " \
+      "[#{home_team["city"]} #{home_team["nickname"]}](/r/#{Subreddits[home_team["tricode"]]}) " \
+      "(#{game["hTeam"]["win"]}-#{game["hTeam"]["loss"]})" \
       "**",
       ("\nPreseason" if game["seasonStageId"] == 1),
       "",
