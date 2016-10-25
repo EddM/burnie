@@ -1,9 +1,8 @@
-require 'open-uri'
-require 'nokogiri'
+require "open-uri"
+require "nokogiri"
 
 class StandingsTask
-
-  DataSource = 'http://espn.go.com/nba/standings/_/group/division'
+  DATA_SOURCE = "http://uk.global.nba.com/stats2/season/divisionstanding.json"
 
   def call(client)
     @client = client
@@ -26,11 +25,10 @@ class StandingsTask
 
   def standings_to_markdown(standings)
     table = []
-    table << "|Team|W|L|PCT|"
-    table << "|:--:|:--:|:--:|:--:|"
+    table << "|Team|W|L|PCT|Form|"
+    table << "|:--:|:--:|:--:|:--:|:--:|"
+
     standings.each do |line|
-      subreddit = Subreddits[Teams[line[0]]]
-      line[0] = "[](/r/#{subreddit}) #{line[0]}"
       table << "|#{line.join("|")}|"
     end
 
@@ -38,25 +36,25 @@ class StandingsTask
   end
 
   def standings
-    return @standings if @standings
+    data = JSON.parse open(DATA_SOURCE).read
+    division = data["payload"]["standingGroups"].find { |group| group["division"] == "Southeast" }
+    teams = division["teams"].sort_by { |team| team["standings"]["divRank"] }
 
-    resource = open(DataSource)
-    doc = Nokogiri::HTML(resource.read)
-    thead = doc.css("thead.standings-categories").select { |el| el.text =~ /southeast/i }.first
-    row = thead.next_element
+    teams.map do |team|
+      win_pct = (team["standings"]["winPct"] / 100.0)
+      is_mia = team["profile"]["displayAbbr"] == "MIA"
 
-    @standings = []
-    5.times do
-      if row
-        cells = row.css('td')
-        team_name = cells[0].css('a')[1].text.split(" ")[0]
-        wins, losses, percentage = cells[1].text, cells[2].text, cells[3].text
-        @standings << [team_name, wins.to_i, losses.to_i, percentage]
-        row = row.next_element
-      end
+      [
+        build_cell("[#{team["profile"]["city"]}](/r/#{Subreddits[team["profile"]["displayAbbr"]]})", is_mia),
+        build_cell(team["standings"]["wins"], is_mia),
+        build_cell(team["standings"]["losses"], is_mia),
+        build_cell(win_pct == 1 ? "1.000" : win_pct.to_s.ljust(5, "0")[1..4], is_mia),
+        build_cell(team["standings"]["streak"].gsub("Lost", "L").gsub("Won", "W"), is_mia)
+      ]
     end
-
-    @standings
   end
 
+  def build_cell(content, is_mia)
+    "#{"**" if is_mia}#{content}#{"**" if is_mia}"
+  end
 end
