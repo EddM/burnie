@@ -3,7 +3,7 @@ require "nokogiri"
 
 class StandingsTask
   DIVISION_DATA_SOURCE = "http://uk.global.nba.com/stats2/season/divisionstanding.json"
-  CONFERENCE_DATA_SOURCE = "http://uk.global.nba.com/stats2/season/conferencestanding.json"
+  CONFERENCE_DATA_SOURCE = "http://data.nba.net/data/10s/prod/v1/current/standings_conference.json"
 
   def call(client)
     @client = client
@@ -39,20 +39,20 @@ class StandingsTask
 
   def conference_standings
     data = JSON.parse open(CONFERENCE_DATA_SOURCE).read
-    division = data["payload"]["standingGroups"].find { |group| group["conference"] == "Eastern" }
-    teams = division["teams"].sort_by { |team| team["standings"]["confRank"] }
+    division = data["league"]["standard"]["conference"]["east"]
+    teams = division.sort_by { |team| team["confRank"].to_i }
 
     teams.map do |team|
-      win_pct = (team["standings"]["winPct"] / 100.0)
-      streak = team["standings"]["streak"].gsub("Lost ", "L").gsub("Won ", "W")
-      is_mia = team["profile"]["displayAbbr"] == "MIA"
+      team_profile = team_data[team["teamId"]]
+      win_pct = team["winPct"]
+      is_mia = team_profile["tricode"] == "MIA"
 
       [
-        build_cell(team["standings"]["confRank"], is_mia),
-        build_cell("[#{team["profile"]["city"]}](/r/#{Subreddits[team["profile"]["displayAbbr"]]})", is_mia),
-        build_cell(team["standings"]["wins"], is_mia),
-        build_cell(team["standings"]["losses"], is_mia),
-        build_cell("#{win_pct == 1 ? "1.000" : win_pct.to_s.ljust(5, "0")[1..4]}", is_mia)
+        build_cell(team["confRank"], is_mia),
+        build_cell("[#{team_profile["city"]}](/r/#{Subreddits[team_profile["tricode"]]})", is_mia),
+        build_cell(team["win"].to_i, is_mia),
+        build_cell(team["loss"].to_i, is_mia),
+        build_cell(win_pct, is_mia)
       ]
     end
   end
@@ -79,5 +79,18 @@ class StandingsTask
 
   def build_cell(content, is_mia)
     "#{"**" if is_mia}#{content}#{"**" if is_mia}"
+  end
+
+  def team_data
+    @team_data ||= begin
+      data_source = "http://data.nba.net/data/10s/prod/v1/2016/teams.json"
+      data = JSON.parse(open(data_source).read)
+      teams = data["league"]["standard"]
+      Hash[*teams.collect { |team| [team_datum_key(team), team] }.flatten]
+    end
+  end
+
+  def team_datum_key(team_data)
+    team_data["teamId"]
   end
 end
