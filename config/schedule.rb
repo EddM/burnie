@@ -9,10 +9,7 @@ every 1.day, at: "11:00 am" do
   # burnie "summer_league:gamethread"
 end
 
-every 1.day, at: "9:00 am" do
- burnie "standings"
-end
-
-every 1.day, at: "10:00 am" do
+every 3.hours do
+  burnie "standings"
   burnie "schedule"
 end
