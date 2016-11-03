@@ -2,7 +2,7 @@ module RedditKit
   class Client
     module Subreddits
       def subreddit_attributes(subreddit_name)
-        if attributes = get("r/#{subreddit_name}/about/edit.json")
+        if attributes = get("r/#{subreddit_name}/about/edit.json?raw_json=1")
           attributes.body[:data]
         end
       end
