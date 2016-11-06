@@ -1,0 +1,25 @@
+body {
+  font-family: "Helvetica Neue", "Arial", sans-serif;
+  font-size: 15px;
+  line-height: 1.4;
+  max-width: 800px;
+  margin: 240px auto 0 auto;
+  background: url(https://67.media.tumblr.com/309c77a5550329e23c0165a563eec4c0/tumblr_o4535fWLxD1s3gys4o1_400.gif) repeat-x;
+}
+
+img { margin-top: 2em; }
+
+a { color: #98002E; }
+a:active, a:focus { color: white; background: #98002E; }
+a:hover { color: #F9A01B; }
+
+pre {
+  background: #f4f4f4;
+  padding: 1em;
+  font-family: "Monaco", "Courier", monospace;
+  font-size: 14px;
+  overflow: scroll;
+}
+
+.ok { color: green; }
+.with-error { color: red; }

@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Burnie Control - Command Result</title>
+    <link rel="stylesheet" href="/burnie.css" />
+  </head>
+  <body>
+    <h1>Burnie Control</h1>
+
+    <p>
+      Command "<%= command %>" executed
+      <% if status.success? %>
+        <strong class="ok">OK</strong> 👍.
+      <% else %>
+        <strong class="errored">with error</strong>.
+      <% end %>
+    </p>
+
+    <p><a href="/">Back to Burnie control</a></p>
+
+    <h2>Output</h2>
+
+    <h3>Error</h3>
+    <pre><%= error && error != "" ? error : "No error returned" %></pre>
+
+    <h3>STDOUT</h3>
+    <pre><%= output && output != "" ? output : "No output returned" %></pre>
+
+    <p>Please don't refresh this page or run this command too often.</p>
+  </body>
+</html>
