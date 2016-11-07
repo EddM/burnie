@@ -13,7 +13,10 @@ class BurnieWeb < Sinatra::Base
 
   %w(schedule standings gamethread).each do |command|
     get "/#{command}" do
-      @output, @error, @status = Open3.capture3("./burnie", command)
+      Dir.chdir "#{File.dirname(__FILE__)}/../.." do
+        @output, @error, @status = Open3.capture3("./burnie", command)
+      end
+
       erb :command, locals: { command: command, output: @output, status: @status, error: @error }
     end
   end
