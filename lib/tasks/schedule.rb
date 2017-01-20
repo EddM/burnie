@@ -33,14 +33,14 @@ class ScheduleTask
     table = ["|Date|Matchup|Score|", "|:--:|:--:|:--:|"]
 
     previous_games.each do |game|
-      win = game["winOrLoss"] == "Won"
+      result = if game["boxscore"]["status"] >= 3
+        win = game["winOrLoss"] == "Won"
 
-      row = "|#{format_time game["time"]}|" \
-            "#{opponent_line(game)}|" \
-            "#{"**" if win}#{game["boxscore"]["awayScore"]} - #{game["boxscore"]["homeScore"]} " \
-            "#{win ? "W" : "L"}#{"**" if win}#{" *(Preseason)*" if game["profile"]["seasonType"] == "1"}|"
+        "#{"**" if win}#{game["boxscore"]["awayScore"]} - #{game["boxscore"]["homeScore"]} " \
+        "#{win ? "W" : "L"}#{"**" if win}#{" *(Preseason)*" if game["profile"]["seasonType"] == "1"}"
+      end
 
-      table << row
+      table << "|#{format_time game["time"]}|#{opponent_line(game)}|#{result}|"
     end
 
     next_games.each do |game|
