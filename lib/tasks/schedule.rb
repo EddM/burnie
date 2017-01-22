@@ -33,7 +33,7 @@ class ScheduleTask
     table = ["|Date|Matchup|Score|", "|:--:|:--:|:--:|"]
 
     previous_games.each do |game|
-      result = if game["boxscore"]["status"] >= 3
+      result = if game["boxscore"]["status"].to_i >= 3
         win = game["winOrLoss"] == "Won"
 
         "#{"**" if win}#{game["boxscore"]["awayScore"]} - #{game["boxscore"]["homeScore"]} " \
