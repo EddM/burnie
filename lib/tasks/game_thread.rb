@@ -34,7 +34,7 @@ class GameThreadTask
 
   def post_game_thread(game)
     game_time = Time.parse("#{game["startTimeUTC"]}").in_time_zone(TZ)
-    detail_url = "http://www.nba.com/games/#{game_time.year}#{game_time.month.to_s.rjust(2, '0')}#{game_time.day.to_s.rjust(2, '0')}/#{game["vTeam"]["triCode"]}#{game["hTeam"]["triCode"]}/gameinfo.html"
+    detail_url = "http://www.nba.com/games/#{game_time.year}#{game_time.month.to_s.rjust(2, '0')}#{game_time.day.to_s.rjust(2, '0')}/#{game["vTeam"]["triCode"]}#{game["hTeam"]["triCode"]}"
 
     visitor_team = team_data[game["vTeam"]["triCode"]]
     home_team = team_data[game["hTeam"]["triCode"]]
