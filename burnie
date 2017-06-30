@@ -40,22 +40,25 @@ if client.signed_in?
   when "summer_league:gamethread"
     task = SummerLeague::GameThreadTask.new
     task.call(client)
+  when "summer_league:schedule"
+    task = SummerLeague::ScheduleTask.new
+    task.call(client)
   else
-    daemon_options = {
-      app_name: "burnie",
-      multiple: true,
-      log_output: true,
-      dir: File.dirname(__FILE__),
-      dir_mode: :normal
-    }
+    # daemon_options = {
+    #   app_name: "burnie",
+    #   multiple: true,
+    #   log_output: true,
+    #   dir: File.dirname(__FILE__),
+    #   dir_mode: :normal
+    # }
 
-    comment_listener = Daemons.call(daemon_options) do
-      PrimaryListener.listen(client)
-    end
+    # comment_listener = Daemons.call(daemon_options) do
+    #   PrimaryListener.listen(client)
+    # end
 
-    score_tracker = Daemons.call(daemon_options) do
-      CurrentGameTracker.track(client)
-    end
+    # score_tracker = Daemons.call(daemon_options) do
+    #   CurrentGameTracker.track(client)
+    # end
   end
 else
   puts "Failed auth :("

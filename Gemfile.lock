@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/samsymons/RedditKit.rb
+  revision: 81accdfe3dd551879371e736d1f2123c53f1aa91
+  specs:
+    redditkit (1.0.2)
+      faraday (~> 0.8)
+      htmlentities (~> 4.3)
+      multi_json (~> 1.8)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -15,7 +24,7 @@ GEM
       safe_yaml (~> 1.0.0)
     daemons (1.2.4)
     diff-lcs (1.2.5)
-    faraday (0.9.2)
+    faraday (0.12.1)
       multipart-post (>= 1.2, < 3)
     hashdiff (0.3.0)
     htmlentities (4.3.4)
@@ -37,10 +46,6 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
-    redditkit (1.0.2)
-      faraday (~> 0.8)
-      htmlentities (~> 4.3)
-      multi_json (~> 1.8)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -86,9 +91,12 @@ DEPENDENCIES
   daemons
   nokogiri
   pry
-  redditkit (~> 1.0.1)
+  redditkit!
   rspec
   sinatra
   sinatra-contrib
   webmock
   whenever
+
+BUNDLED WITH
+   1.15.1
