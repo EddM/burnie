@@ -23,10 +23,20 @@ class SummerLeague::ScheduleTask
     @games.map do |game|
       time = Time.parse "#{game["etm"]} EST"
 
-      if time < Time.now
+      if time < Time.now && game["v"]["s"] && game["h"]["s"]
+        home_score = game["h"]["s"].to_i
+        away_score = game["v"]["s"].to_i
+        is_home = game["h"]["ta"] == "MIA"
+
+        if (is_home && home_score > away_score) || (!is_home && away_score > home_score)
+          result = "W"
+        else
+          result = "L"
+        end
+
         row = "|#{format_time time}|" \
               "#{opponent_line(game)}|" \
-              "|"
+              "#{"**" if result == "W"}#{away_score} - #{home_score} #{result}#{"**" if result == "W"}|"
       else
         row = "|#{format_time time}|" \
               "#{opponent_line(game)}|" \
