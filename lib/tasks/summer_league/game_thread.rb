@@ -37,7 +37,7 @@ class SummerLeague::GameThreadTask
       "|**TV/Radio:**|#{media.join(" / ")} / League Pass|",
       "|**Important info:**|[Miami Heat Summer League Rosters](http://www.nba.com/magic/summer-league/rosters#heat)|",
     ].join("\n")
-puts body
-    # response = @client.submit "[Game Thread] #{title}", Configuration["subreddit"], { text: body, extension: "json" }
+
+    response = @client.submit "[Game Thread] #{title}", Configuration["subreddit"], { text: body, extension: "json" }
   end
 end

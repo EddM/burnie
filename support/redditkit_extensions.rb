@@ -17,7 +17,7 @@ module RedditKit
           sr: attributes[:subreddit_id], uh: @modhash, api_type: 'json',
           title: attributes[:title], description: attributes[:description],
           public_description: attributes[:public_description], wikimode: attributes[:wikimode],
-          key_color: attributes[:key_color], show_media_preview: true
+          key_color: attributes[:key_color], show_media_preview: true, allow_images: attributes[:allow_images]
         }
 
         post('api/site_admin.json', params.merge(parameters))
