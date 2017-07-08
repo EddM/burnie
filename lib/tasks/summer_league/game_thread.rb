@@ -4,7 +4,11 @@ class SummerLeague::GameThreadTask
     @core = SummerLeague::Core.new
     @games = @core.games
 
-    todays_game = @games.find { |game| game["gdtutc"] == Time.now.strftime("%Y-%m-%d") }
+    todays_game = @games.find do |game|
+      time = Time.parse game["etm"]
+      time >= Time.now && time <= (Time.now + 86_400)
+    end
+
     post_game_thread(todays_game) if todays_game
   end
 
@@ -33,7 +37,7 @@ class SummerLeague::GameThreadTask
       "|**TV/Radio:**|#{media.join(" / ")} / League Pass|",
       "|**Important info:**|[Miami Heat Summer League Rosters](http://www.nba.com/magic/summer-league/rosters#heat)|",
     ].join("\n")
-
-    response = @client.submit "[Game Thread] #{title}", Configuration["subreddit"], { text: body, extension: "json" }
+puts body
+    # response = @client.submit "[Game Thread] #{title}", Configuration["subreddit"], { text: body, extension: "json" }
   end
 end
