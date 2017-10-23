@@ -11,6 +11,6 @@ every 1.day, at: "11:00 am" do
 end
 
 every 1.hours do
-  # burnie "standings"
+  burnie "standings"
   burnie "schedule"
 end
