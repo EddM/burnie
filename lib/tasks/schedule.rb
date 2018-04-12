@@ -56,7 +56,9 @@ class ScheduleTask
         status = ""
       end
 
-      row = "|#{format_time game["time"]}|" \
+      time = format_time game["time"], game["boxscore"]["statusDesc"] == "TBD"
+
+      row = "|#{time}|" \
             "#{opponent_line(game)}|" \
             "#{status}|"
 
@@ -74,12 +76,12 @@ class ScheduleTask
     end
   end
 
-  def format_time(datetime)
+  def format_time(datetime, tbd = false)
     datetime = datetime.in_time_zone(TZ)
     date = datetime.strftime("%a, %b %e").strip
     time = datetime.strftime("%l:%M %p").strip
 
-    "#{date} *#{time}*"
+    "#{date} *#{tbd ? "TBD" : time}*"
   end
 
   def subreddit_link(abbreviation, label = nil)
