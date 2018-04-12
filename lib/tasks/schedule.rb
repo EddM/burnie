@@ -44,9 +44,21 @@ class ScheduleTask
     end
 
     next_games.each do |game|
+      if game["profile"]["seasonType"] == "1"
+        status = " *(Preseason)*"
+      elsif game["profile"]["seasonType"] == "4"
+        status = "*Game #{game["profile"]["number"]}*"
+
+        if game["boxscore"]["statusDesc"] == "TBD"
+          status = "#{status} *(if nec.)*"
+        end
+      else
+        status = ""
+      end
+
       row = "|#{format_time game["time"]}|" \
             "#{opponent_line(game)}|" \
-            "#{" *(Preseason)*" if game["profile"]["seasonType"] == "1"}|"
+            "#{status}|"
 
       table << row
     end
