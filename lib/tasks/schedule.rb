@@ -49,9 +49,9 @@ class ScheduleTask
       elsif game["profile"]["seasonType"] == "4"
         status = "*Game #{game["profile"]["number"]}*"
 
-        if game["boxscore"]["statusDesc"] == "TBD"
-          status = "#{status} *(if nec.)*"
-        end
+        # if game["profile"]["statusDesc"] == "TBD"
+        #   status = "#{status} *(if nec.)*"
+        # end
       else
         status = ""
       end
