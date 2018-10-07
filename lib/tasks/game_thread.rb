@@ -5,7 +5,8 @@ class GameThreadTask
     @client = client
     data = JSON.parse(open(data_source).read)
 
-    data["games"].each do |game|
+puts data
+data["games"].each do |game|
       post_game_thread(game) if game["vTeam"]["triCode"] == "MIA" || game["hTeam"]["triCode"] == "MIA"
     end
   end
@@ -14,7 +15,7 @@ class GameThreadTask
     today = Time.now
     date_string = "#{today.year}#{today.month.to_s.rjust(2, "0")}#{today.day.to_s.rjust(2, "0")}"
 
-    "http://data.nba.net/data/10s/prod/v1/#{date_string}/scoreboard.json"
+    "https://data.nba.net/prod/v2/#{date_string}/scoreboard.json"
   end
 
   private
@@ -38,10 +39,17 @@ class GameThreadTask
 
     visitor_team = team_data[game["vTeam"]["triCode"]]
     home_team = team_data[game["hTeam"]["triCode"]]
+
+    if game["seasonStageId"] == 1
+      game_type = "Preseason"
+    elsif game_time >= Date.new(Time.now.year, 7, 1)
+      game_type = "Summer League"
+    end
+
     title = "#{visitor_team["city"]} #{visitor_team["nickname"]} (#{game["vTeam"]["win"]}-#{game["vTeam"]["loss"]}) " \
             "@ " \
             "#{home_team["city"]} #{home_team["nickname"]} (#{game["hTeam"]["win"]}-#{game["hTeam"]["loss"]}) - " \
-            "#{"Preseason - " if game["seasonStageId"] == 1}" \
+            "#{"#{game_type} - " if game_type}" \
             "#{game_time.month}/#{game_time.day}, #{game_time.strftime("%I:%M %p")} ET"
 
     media = game["watch"]["broadcast"]["broadcasters"]["national"] +
@@ -49,7 +57,13 @@ class GameThreadTask
             game["watch"]["broadcast"]["broadcasters"]["hTeam"]
 
     broadcasters = media.collect { |broadcaster| broadcaster["longName"] }
-    arena = Arenas[home_team["tricode"]].join(", ")
+
+    if game["arena"]
+      arena_info = game["arena"]
+      arena = [arena_info["name"], arena_info["city"], arena_info["stateAbbr"]].join(", ")
+    else
+      arena = Arenas[home_team["tricode"]].join(", ")
+    end
 
     body = [
       "**" \
@@ -59,16 +73,21 @@ class GameThreadTask
       "[#{home_team["city"]} #{home_team["nickname"]}](/r/#{Subreddits[home_team["tricode"]]}) " \
       "(#{game["hTeam"]["win"]}-#{game["hTeam"]["loss"]})" \
       "**",
-      ("\nPreseason" if game["seasonStageId"] == 1),
+      game_type,
       "",
       "|Game Details||",
       "|:---|:---|",
       "|**Location:**|#{arena}|",
-      "|**Tip-off time:**|#{game_time.strftime("%I:%M%p")} Eastern (#{(game_time - 3600).strftime("%I:%M%p")} Central, #{(game_time - 10800).strftime("%I:%M%p")} Pacific, #{(game_time + 18000).strftime("%I:%M%p")} GMT)|",
+      "|**Tip-off time:**|#{game_time.strftime("%l:%M%p")} Eastern (#{(game_time - 3600).strftime("%l:%M%p")} Central, #{(game_time - 10800).strftime("%l:%M%p")} Pacific, #{(game_time + 18000).strftime("%l:%M%p")} GMT)|",
       "|**TV/Radio:**|#{broadcasters.join(" / ")} / League Pass|",
       "|**Game Info & Stats:**|[NBA.com](#{detail_url})|",
     ].compact.join("\n")
-
-    response = @client.submit "[Game Thread] #{title}", Configuration["subreddit"], { text: body, extension: "json" }
+return
+    response = @client.submit "[Game Thread] #{title}", Configuration["subreddit"], {
+      text: body,
+      flair_text: "Game Thread",
+      extension: "json"
+    }
   end
 end
+
