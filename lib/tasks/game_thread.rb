@@ -42,8 +42,6 @@ data["games"].each do |game|
 
     if game["seasonStageId"] == 1
       game_type = "Preseason"
-    elsif game_time >= Date.new(Time.now.year, 7, 1)
-      game_type = "Summer League"
     end
 
     title = "#{visitor_team["city"]} #{visitor_team["nickname"]} (#{game["vTeam"]["win"]}-#{game["vTeam"]["loss"]}) " \
@@ -82,7 +80,7 @@ data["games"].each do |game|
       "|**TV/Radio:**|#{broadcasters.join(" / ")} / League Pass|",
       "|**Game Info & Stats:**|[NBA.com](#{detail_url})|",
     ].compact.join("\n")
-return
+
     response = @client.submit "[Game Thread] #{title}", Configuration["subreddit"], {
       text: body,
       flair_text: "Game Thread",

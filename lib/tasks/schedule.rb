@@ -1,7 +1,7 @@
 class ScheduleTask
   TZ = "Eastern Time (US & Canada)"
-  ScheduleURL = "http://www.nba.com/heat/schedule/"
-  DataSource = "http://uk.global.nba.com/stats2/team/schedule.json?countryCode=US&locale=en&teamCode=heat"
+  ScheduleURL = "https://www.nba.com/heat/schedule/"
+  DataSource = "https://uk.global.nba.com/stats2/team/schedule.json?countryCode=US&locale=en&teamCode=heat"
   MaxGames = 10
 
   def call(client, year, month, day)
