@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
+gem 'json', '1.8.5'
 gem 'pry'
-gem 'redditkit', git: 'https://github.com/samsymons/RedditKit.rb'
+gem 'redditkit', git: 'https://github.com/samsymons/RedditKit.rb.git'
 gem 'daemons'
 gem 'nokogiri'
 gem 'whenever', require: false

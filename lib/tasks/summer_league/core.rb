@@ -1,9 +1,12 @@
+require 'open-uri'
+
 class SummerLeague::Core
   attr_reader :games
 
   URLS = [
-    "http://data.nba.com/data/10s/v2015/json/mobile_teams/orlando/2017/league/14_full_schedule.json",
-    "http://data.nba.com/data/10s/v2015/json/mobile_teams/vegas/2017/league/15_full_schedule.json"
+    "https://data.nba.com/data/10s/v2015/json/mobile_teams/sacramento/2019/league/13_full_schedule.json",
+    "https://data.nba.com/data/10s/v2015/json/mobile_teams/vegas/2019/league/15_full_schedule.json",
+    "https://data.nba.com/data/10s/v2015/json/mobile_teams/utah/2019/league/16_full_schedule.json"
   ]
 
   def initialize

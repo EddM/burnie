@@ -29,5 +29,6 @@ Subreddits = {
   "NYK" => "nyknicks",
   "DET" => "DetroitPistons",
   "NOR" => "nolapelicans",
-  "NOP" => "nolapelicans"
+  "NOP" => "nolapelicans",
+  "CHN" => "NBA",
 }
