@@ -11,14 +11,16 @@ module RedditKit
         @modhash = user.attributes[:modhash]
         attributes = subreddit_attributes(subreddit_name)
 
-        params = {
-          type: attributes[:subreddit_type], link_type: attributes[:content_options],
-          lang: attributes[:language], allow_top: true, show_media: attributes[:show_media], over_18: attributes[:over_18],
-          sr: attributes[:subreddit_id], uh: @modhash, api_type: 'json',
-          title: attributes[:title], description: attributes[:description],
-          public_description: attributes[:public_description], wikimode: attributes[:wikimode],
-          key_color: attributes[:key_color], show_media_preview: true, allow_images: attributes[:allow_images]
-        }
+        params = attributes.merge(
+          type: attributes[:subreddit_type],
+          link_type: attributes[:content_options],
+          lang: attributes[:language],
+          allow_top: true,
+          "header-title" => attributes[:header_hover_text],
+          sr: attributes[:subreddit_id],
+          uh: @modhash,
+          api_type: 'json'
+        )
 
         post('api/site_admin.json', params.merge(parameters))
       end
