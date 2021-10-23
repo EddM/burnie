@@ -1,18 +1,23 @@
-require './lib/configuration.rb'
-require './lib/player_names.rb'
-require './lib/primary_listener.rb'
-require './lib/subreddits.rb'
-require './lib/tasks/game_thread.rb'
-require './lib/tasks/playoff_picture.rb'
-require './lib/tasks/related_subreddits_task.rb'
-require './lib/tasks/schedule.rb'
-require './lib/tasks/standings.rb'
-require './lib/tasks/summer_league.rb'
-require './lib/tasks/summer_league/core.rb'
-require './lib/tasks/summer_league/game_thread.rb'
-require './lib/tasks/summer_league/schedule.rb'
-require './lib/trackers/current_game_tracker.rb'
-require './lib/arenas.rb'
-require './lib/teams.rb'
+# frozen_string_literal: true
 
-require './support/redditkit_extensions'
+require "./lib/client"
+require "./lib/configuration"
+require "./lib/post"
+require "./lib/authentication"
+require "./lib/access_token"
+
+require "./lib/player_names"
+require "./lib/primary_listener"
+require "./lib/subreddits"
+require "./lib/arenas"
+require "./lib/teams"
+
+require "./lib/tasks/game_thread"
+require "./lib/tasks/playoff_picture"
+require "./lib/tasks/related_subreddits_task"
+require "./lib/tasks/schedule"
+require "./lib/tasks/standings"
+require "./lib/tasks/summer_league"
+require "./lib/tasks/summer_league/core"
+require "./lib/tasks/summer_league/game_thread"
+require "./lib/tasks/summer_league/schedule"
