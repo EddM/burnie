@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+require "httparty"
+
 class Client
+  USER_AGENT = "BurnieBot/2.0 by BLITZCRUNK123"
+
   attr_reader :refresh_token
 
   def initialize
@@ -24,12 +28,13 @@ class Client
   def post(path, **params)
     HTTParty.post(
       "https://oauth.reddit.com/#{path}",
-      headers: {
-        "User-Agent" => "BurnieBot/2.0 by BLITZCRUNK123",
-        "Authorization" => "Bearer #{access_token}",
-      },
+      headers: headers,
       body: params,
     )
+  end
+
+  def get(path)
+    HTTParty.get("https://oauth.reddit.com/#{path}", headers: headers)
   end
 
   # extension arg is just for compatibility with RedditKit
@@ -37,7 +42,22 @@ class Client
     Post.create(self, "[Game Thread] #{title}", subreddit, text: text, flair_text: flair_text)
   end
 
+  def update_subreddit(subreddit, description:)
+    Subreddit.update(self, subreddit, description: description)
+  end
+
   private
+
+  def headers
+    {
+      "User-Agent" => USER_AGENT,
+      "Authorization" => auth_header,
+    }
+  end
+
+  def auth_header
+    "Bearer #{access_token}"
+  end
 
   def access_token
     AccessToken.new(self).refresh

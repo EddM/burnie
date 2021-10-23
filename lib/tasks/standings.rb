@@ -16,13 +16,13 @@ class StandingsTask
 
   def update_sidebar(standings)
     full_markdown = standings_to_markdown(standings)
-    subreddit_attributes = @client.subreddit_attributes(Configuration["subreddit"])
+
+    subreddit = Subreddit.new(@client, Configuration["subreddit"])
+    subreddit_attributes = subreddit.attributes
     sidebar_text = subreddit_attributes[:description]
     sidebar_text.gsub!(/\#\#\[?Standings(.*?)\#\#/m, "#{full_markdown}\n\n##")
 
-    @client.update_subreddit(Configuration["subreddit"], {
-      :description => sidebar_text
-    })
+    @client.update_subreddit(Configuration["subreddit"], description: sidebar_text)
   end
 
   def standings_to_markdown(standings)

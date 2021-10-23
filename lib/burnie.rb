@@ -3,6 +3,7 @@
 require "./lib/client"
 require "./lib/configuration"
 require "./lib/post"
+require "./lib/subreddit"
 require "./lib/authentication"
 require "./lib/access_token"
 
