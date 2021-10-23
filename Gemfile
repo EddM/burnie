@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "json", "1.8.5"
+gem "json", "2.3.0"
 gem "pry"
 gem "nokogiri"
 gem "whenever", require: false
