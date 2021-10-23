@@ -1,3 +1,5 @@
+require "active_support/time"
+
 class GameThreadTask
   TZ = "Eastern Time (US & Canada)"
 
@@ -5,8 +7,7 @@ class GameThreadTask
     @client = client
     data = JSON.parse(open(data_source).read)
 
-puts data
-data["games"].each do |game|
+    data["games"].each do |game|
       post_game_thread(game) if game["vTeam"]["triCode"] == "MIA" || game["hTeam"]["triCode"] == "MIA"
     end
   end
@@ -81,7 +82,7 @@ data["games"].each do |game|
       "|**Game Info & Stats:**|[NBA.com](#{detail_url})|",
     ].compact.join("\n")
 
-    response = @client.submit "[Game Thread] #{title}", Configuration["subreddit"], {
+    @client.submit "[Game Thread] #{title}", Configuration["subreddit"], {
       text: body,
       flair_text: "Game Thread",
       extension: "json"

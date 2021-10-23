@@ -1,65 +1,36 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require "bundler/setup"
+require "open-uri"
+require "./lib/burnie"
 
-require 'pry'
-require 'json'
-require 'open-uri'
-require 'redditkit'
-require 'daemons'
+client = Client.new
 
-require './lib/burnie'
-
-client = RedditKit::Client.new
-client.user_agent = "Burnie (/r/Heat) 2.0"
-client.sign_in Configuration["username"], Configuration["password"]
-
-at_exit do
-  client.sign_out
-end
-
-if client.signed_in?
-  case ARGV[0]
-  when "schedule"
-    task = ScheduleTask.new
-    year, month, day = Time.now.year, Time.now.month, Time.now.day
-    month = 10 if month < 10 && year < 2015
-    task.call(client, year, month, day)
-  when "standings"
-    task = StandingsTask.new
-    task.call(client)
-  when "gamethread"
-    task = GameThreadTask.new
-    task.call(client)
-  when "related"
-    task = RelatedSubredditsTask.new
-    task.call(client)
-  when "playoffs"
-    task = PlayoffPictureTask.new
-    task.call(client)
-  when "summer_league:gamethread"
-    task = SummerLeague::GameThreadTask.new
-    task.call(client)
-  when "summer_league:schedule"
-    task = SummerLeague::ScheduleTask.new
-    task.call(client)
-  else
-    # daemon_options = {
-    #   app_name: "burnie",
-    #   multiple: true,
-    #   log_output: true,
-    #   dir: File.dirname(__FILE__),
-    #   dir_mode: :normal
-    # }
-
-    # comment_listener = Daemons.call(daemon_options) do
-    #   PrimaryListener.listen(client)
-    # end
-
-    # score_tracker = Daemons.call(daemon_options) do
-    #   CurrentGameTracker.track(client)
-    # end
-  end
-else
-  puts "Failed auth :("
+case ARGV[0]
+when "auth"
+  client.authenticate
+when "schedule"
+  task = ScheduleTask.new
+  year, month, day = Time.now.year, Time.now.month, Time.now.day
+  month = 10 if month < 10 && year < 2015
+  task.call(client, year, month, day)
+when "standings"
+  task = StandingsTask.new
+  task.call(client)
+when "gamethread"
+  task = GameThreadTask.new
+  task.call(client)
+when "related"
+  task = RelatedSubredditsTask.new
+  task.call(client)
+when "playoffs"
+  task = PlayoffPictureTask.new
+  task.call(client)
+when "summer_league:gamethread"
+  task = SummerLeague::GameThreadTask.new
+  task.call(client)
+when "summer_league:schedule"
+  task = SummerLeague::ScheduleTask.new
+  task.call(client)
 end

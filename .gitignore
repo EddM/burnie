@@ -25,3 +25,4 @@
 .rvmrc
 
 config/settings.json
+.refresh_token
