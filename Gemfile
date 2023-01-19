@@ -4,7 +4,7 @@ gem "json", "1.8.5"
 gem "pry"
 gem "nokogiri"
 gem "whenever", require: false
-gem "activesupport", "~> 4"
+gem "activesupport", "~> 6"
 gem "sinatra"
 gem "sinatra-contrib", require: false
 gem "httparty"
